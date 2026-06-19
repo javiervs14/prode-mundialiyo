@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Fixture Mundial 2026</h3>
+    <a href="{{ url_for('main.predicciones') }}" class="btn btn-primary">Mis predicciones</a>
+</div>
+
+{% set ns = namespace(current_etapa='') %}
+{% for p in partidos %}
+{% if p.etapa != ns.current_etapa %}
+{% set ns.current_etapa = p.etapa %}
+{% set etapa_labels = {"grupos": "Fase de Grupos", "octavos": "Octavos de Final", "cuartos": "Cuartos de Final", "semis": "Semifinales", "tercer_puesto": "Tercer Puesto", "final": "Final"} %}
+<div class="card mb-3">
+    <div class="card-header">{{ etapa_labels.get(p.etapa, p.etapa) }}</div>
+    <div class="card-body p-0">
+        <table class="table table-dark table-striped mb-0">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Local</th>
+                    <th class="text-center">Resultado</th>
+                    <th>Visitante</th>
+                    <th class="text-center">Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+{% endif %}
+                <tr>
+                    <td class="align-middle">{{ p.fecha.strftime('%d/%m %H:%M') }}</td>
+                    <td class="align-middle">{{ p.local }}</td>
+                    <td class="text-center align-middle">
+                        {% if p.jugado and p.goles_local is not none %}
+                        <div class="resultado-box">
+                            <strong class="text-light">{{ p.goles_local }} - {{ p.goles_visitante }}</strong>
+                        </div>
+                        {% else %}
+                        <div class="resultado-box">
+                            <span class="text-muted">- : -</span>
+                        </div>
+                        {% endif %}
+                    </td>
+                    <td class="align-middle">{{ p.visitante }}</td>
+                    <td class="text-center align-middle">
+                        {% if p.jugado %}
+                        <span class="estado-jugado">Jugado</span>
+                        {% else %}
+                        <span class="estado-no-jugado">Próximo</span>
+                        {% endif %}
+                        {% if p.grupo %}
+                        <span class="grupo-badge ms-1">{{ p.grupo }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+{% if loop.nextitem is undefined or loop.nextitem.etapa != p.etapa %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endblock %}

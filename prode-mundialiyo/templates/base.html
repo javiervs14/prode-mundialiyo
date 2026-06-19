@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prode Mundialiyo 2026</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #0a0f1e; color: #e0e0e0; }
+        .navbar { background: #141b2d !important; border-bottom: 2px solid #1e90ff; }
+        .card { background: #1a2340; border: 1px solid #2a3550; }
+        .card-header { background: #141b2d; border-bottom: 1px solid #2a3550; color: #1e90ff; font-weight: bold; }
+        .btn-primary { background: #1e90ff; border: none; }
+        .btn-primary:hover { background: #1a7de6; }
+        .btn-success { background: #28a745; border: none; }
+        .table { color: #e0e0e0; }
+        .table th { border-color: #2a3550; color: #1e90ff; }
+        .table td { border-color: #2a3550; vertical-align: middle; }
+        .resultado-box { background: #0d1528; border-radius: 8px; padding: 6px 12px; display: inline-block; min-width: 60px; text-align: center; }
+        .pred-input { width: 50px; text-align: center; background: #0d1528; border: 1px solid #2a3550; color: #e0e0e0; border-radius: 4px; padding: 4px; }
+        .pred-input:focus { border-color: #1e90ff; outline: none; }
+        .flash-msg { position: fixed; top: 80px; right: 20px; z-index: 9999; }
+        .vs { color: #6c757d; font-size: 0.9rem; }
+        .puntos-badge { font-size: 1.2rem; font-weight: bold; color: #ffd700; }
+        .estado-jugado { color: #28a745; }
+        .estado-no-jugado { color: #ffc107; }
+        .grupo-badge { background: #2a3550; border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #adb5bd; }
+        .footer { text-align: center; padding: 20px; color: #6c757d; font-size: 0.85rem; }
+        .hero { text-align: center; padding: 60px 20px; }
+        .hero h1 { color: #1e90ff; font-size: 3rem; font-weight: bold; }
+        .hero p { color: #adb5bd; font-size: 1.2rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="/">Prode Mundialiyo 2026</a>
+            {% if current_user.is_authenticated %}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.fixture') }}">Fixture</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.predicciones') }}">Predecir</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.ranking') }}">Ranking</a></li>
+                    <li class="nav-item"><span class="nav-link text-info">{{ current_user.username }}</span></li>
+                    <li class="nav-item"><a class="nav-link text-danger" href="{{ url_for('auth.logout') }}">Salir</a></li>
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-msg">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+
+    <div class="footer">
+        Prode Mundialiyo 2026 &mdash; Los penales no cuentan, solo el resultado final
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
