@@ -47,15 +47,19 @@ def predicciones():
                 pred = Prediccion.query.filter_by(
                     usuario_id=current_user.id, partido_id=partido_id
                 ).first()
+                if pred and pred.bloqueado:
+                    continue
                 if pred:
                     pred.goles_local = goles_local
                     pred.goles_visitante = goles_visitante
+                    pred.bloqueado = True
                 else:
                     pred = Prediccion(
                         usuario_id=current_user.id,
                         partido_id=partido_id,
                         goles_local=goles_local,
                         goles_visitante=goles_visitante,
+                        bloqueado=True,
                     )
                     db.session.add(pred)
         db.session.commit()

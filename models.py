@@ -50,6 +50,7 @@ class Prediccion(db.Model):
     goles_local = db.Column(db.Integer, nullable=False)
     goles_visitante = db.Column(db.Integer, nullable=False)
     puntos = db.Column(db.Integer, nullable=True)
+    bloqueado = db.Column(db.Boolean, default=False)
     creada = db.Column(db.DateTime, default=datetime.utcnow)
 
     __table_args__ = (db.UniqueConstraint("usuario_id", "partido_id", name="uq_usuario_partido"),)

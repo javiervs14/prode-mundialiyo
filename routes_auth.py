@@ -42,7 +42,7 @@ def login():
             flash("Usuario o contraseña incorrectos.", "danger")
             return render_template("login.html")
 
-        login_user(user)
+        login_user(user, remember=True)
         return redirect(url_for("main.fixture"))
     return render_template("login.html")
 

@@ -60,6 +60,13 @@
                             {% else %}
                             <span class="text-muted"><i class="bi bi-dash-circle me-1"></i>Sin predecir</span>
                             {% endif %}
+                        {% elif p.id in preds and preds[p.id].bloqueado %}
+                        <div class="resultado-box" style="position: relative;">
+                            <i class="bi bi-lock-fill" style="position: absolute; top: -6px; right: -6px; font-size: 0.65rem; color: #d4af37;"></i>
+                            <span class="text-light">{{ preds[p.id].goles_local }}</span>
+                            <span class="text-muted mx-1">-</span>
+                            <span class="text-light">{{ preds[p.id].goles_visitante }}</span>
+                        </div>
                         {% else %}
                         <div class="d-flex align-items-center justify-content-center gap-2">
                             <input type="number" min="0" max="20" name="local_{{ p.id }}"

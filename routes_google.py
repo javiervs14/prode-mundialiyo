@@ -81,7 +81,7 @@ def init_google_login(app):
             db.session.add(user)
             db.session.commit()
 
-        login_user(user)
+        login_user(user, remember=True)
         return redirect(url_for("main.fixture"))
 
     app.register_blueprint(google_bp)
