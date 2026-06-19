@@ -1,70 +1,83 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h3>Mis predicciones</h3>
-    <a href="{{ url_for('main.fixture') }}" class="btn btn-outline-primary">Ver fixture</a>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="page-title"><i class="bi bi-pencil-square me-2"></i>Mis predicciones</h2>
+    <a href="{{ url_for('main.fixture') }}" class="btn btn-outline-primary">
+        <i class="bi bi-calendar-event me-1"></i>Fixture
+    </a>
 </div>
 
 {% if ya_jugados_todos %}
-<div class="alert alert-info">
-    Todos los partidos ya se jugaron. No podés hacer más predicciones.
+<div class="alert alert-info border-0 shadow-sm">
+    <i class="bi bi-info-circle me-2"></i>Todos los partidos ya se jugaron. No podés hacer más predicciones.
 </div>
 {% else %}
 <form method="POST">
 {% endif %}
 
+{% set etapa_labels = {"grupos": "Fase de Grupos", "octavos": "Octavos de Final", "cuartos": "Cuartos de Final", "semis": "Semifinales", "tercer_puesto": "Tercer Puesto", "final": "Final"} %}
 {% set ns = namespace(current_etapa='') %}
+
 {% for p in partidos %}
 {% if p.etapa != ns.current_etapa %}
 {% set ns.current_etapa = p.etapa %}
-{% set etapa_labels = {"grupos": "Fase de Grupos", "octavos": "Octavos de Final", "cuartos": "Cuartos de Final", "semis": "Semifinales", "tercer_puesto": "Tercer Puesto", "final": "Final"} %}
-<div class="card mb-3">
-    <div class="card-header">{{ etapa_labels.get(p.etapa, p.etapa) }}
-        {% if p.jornada %} - Fecha {{ p.jornada }}{% endif %}
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="bi bi-{% if p.etapa == 'grupos' %}grid-3x3-gap{% elif p.etapa == 'final' %}trophy{% else %}arrow-right-circle{% endif %} me-2"></i>
+        {{ etapa_labels.get(p.etapa, p.etapa) }}
+        {% if p.jornada %}<span class="badge bg-primary ms-2">Fecha {{ p.jornada }}</span>{% endif %}
     </div>
     <div class="card-body p-0">
-        <table class="table table-dark table-striped mb-0">
+        <table class="table table-dark table-hover mb-0">
             <thead>
                 <tr>
-                    <th>Fecha</th>
+                    <th style="width: 80px;">Fecha</th>
                     <th>Local</th>
-                    <th class="text-center">Predicción</th>
+                    <th class="text-center" style="width: 140px;">Predicción</th>
                     <th>Visitante</th>
-                    <th class="text-center">Resultado real</th>
-                    <th class="text-center">Pts</th>
+                    <th class="text-center" style="width: 100px;">Resultado</th>
+                    <th class="text-center" style="width: 60px;">Pts</th>
                 </tr>
             </thead>
             <tbody>
 {% endif %}
-                <tr>
-                    <td class="align-middle">{{ p.fecha.strftime('%d/%m %H:%M') }}</td>
-                    <td class="align-middle">{{ p.local }}</td>
+                <tr class="match-card">
+                    <td class="align-middle">
+                        <small class="text-muted">{{ p.fecha.strftime('%d/%m') }}</small>
+                    </td>
+                    <td class="align-middle team-name">{{ p.local }}</td>
                     <td class="text-center align-middle">
                         {% if p.jugado %}
                             {% if p.id in preds %}
                             <div class="resultado-box">
-                                <strong class="text-light">{{ preds[p.id].goles_local }} - {{ preds[p.id].goles_visitante }}</strong>
+                                <span class="text-light">{{ preds[p.id].goles_local }}</span>
+                                <span class="text-muted mx-1">-</span>
+                                <span class="text-light">{{ preds[p.id].goles_visitante }}</span>
                             </div>
                             {% else %}
-                            <span class="text-muted">Sin predecir</span>
+                            <span class="text-muted"><i class="bi bi-dash-circle me-1"></i>Sin predecir</span>
                             {% endif %}
                         {% else %}
-                        <div class="d-flex align-items-center justify-content-center gap-1">
+                        <div class="d-flex align-items-center justify-content-center gap-2">
                             <input type="number" min="0" max="20" name="local_{{ p.id }}"
                                    class="pred-input" value="{{ preds[p.id].goles_local if p.id in preds else '' }}"
+                                   placeholder="0"
                                    {% if ya_jugados_todos %}disabled{% endif %}>
                             <span class="vs">:</span>
                             <input type="number" min="0" max="20" name="visit_{{ p.id }}"
                                    class="pred-input" value="{{ preds[p.id].goles_visitante if p.id in preds else '' }}"
+                                   placeholder="0"
                                    {% if ya_jugados_todos %}disabled{% endif %}>
                         </div>
                         {% endif %}
                     </td>
-                    <td class="align-middle">{{ p.visitante }}</td>
+                    <td class="align-middle team-name">{{ p.visitante }}</td>
                     <td class="text-center align-middle">
                         {% if p.jugado and p.goles_local is not none %}
                         <div class="resultado-box">
-                            <strong>{{ p.goles_local }} - {{ p.goles_visitante }}</strong>
+                            <span class="text-light">{{ p.goles_local }}</span>
+                            <span class="text-muted mx-1">-</span>
+                            <span class="text-light">{{ p.goles_visitante }}</span>
                         </div>
                         {% else %}
                         <span class="text-muted">-</span>
@@ -72,7 +85,13 @@
                     </td>
                     <td class="text-center align-middle">
                         {% if p.id in preds and preds[p.id].puntos is not none %}
-                        <span class="puntos-badge">{{ preds[p.id].puntos }}</span>
+                            {% if preds[p.id].puntos == 3 %}
+                            <span class="puntos-badge puntos-exacto" title="Resultado exacto">3</span>
+                            {% elif preds[p.id].puntos == 1 %}
+                            <span class="puntos-badge puntos-acierto" title="Acierto de victoria/empate">1</span>
+                            {% else %}
+                            <span class="puntos-badge puntos-cero" title="Equivocado">0</span>
+                            {% endif %}
                         {% elif p.jugado and p.id not in preds %}
                         <span class="text-muted">0</span>
                         {% else %}
@@ -89,8 +108,10 @@
 {% endfor %}
 
 {% if not ya_jugados_todos %}
-<div class="text-center mt-3">
-    <button type="submit" class="btn btn-primary btn-lg">Guardar predicciones</button>
+<div class="text-center mt-4 mb-5">
+    <button type="submit" class="btn btn-primary btn-lg px-5">
+        <i class="bi bi-save me-2"></i>Guardar predicciones
+    </button>
 </div>
 </form>
 {% endif %}

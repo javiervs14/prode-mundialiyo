@@ -5,47 +5,369 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prode Mundialiyo 2026</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
-        body { background: #0a0f1e; color: #e0e0e0; }
-        .navbar { background: #141b2d !important; border-bottom: 2px solid #1e90ff; }
-        .card { background: #1a2340; border: 1px solid #2a3550; }
-        .card-header { background: #141b2d; border-bottom: 1px solid #2a3550; color: #1e90ff; font-weight: bold; }
-        .btn-primary { background: #1e90ff; border: none; }
-        .btn-primary:hover { background: #1a7de6; }
-        .btn-success { background: #28a745; border: none; }
-        .table { color: #e0e0e0; }
-        .table th { border-color: #2a3550; color: #1e90ff; }
-        .table td { border-color: #2a3550; vertical-align: middle; }
-        .resultado-box { background: #0d1528; border-radius: 8px; padding: 6px 12px; display: inline-block; min-width: 60px; text-align: center; }
-        .pred-input { width: 50px; text-align: center; background: #0d1528; border: 1px solid #2a3550; color: #e0e0e0; border-radius: 4px; padding: 4px; }
-        .pred-input:focus { border-color: #1e90ff; outline: none; }
-        .flash-msg { position: fixed; top: 80px; right: 20px; z-index: 9999; }
-        .vs { color: #6c757d; font-size: 0.9rem; }
-        .puntos-badge { font-size: 1.2rem; font-weight: bold; color: #ffd700; }
-        .estado-jugado { color: #28a745; }
-        .estado-no-jugado { color: #ffc107; }
-        .grupo-badge { background: #2a3550; border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #adb5bd; }
-        .footer { text-align: center; padding: 20px; color: #6c757d; font-size: 0.85rem; }
-        .hero { text-align: center; padding: 60px 20px; }
-        .hero h1 { color: #1e90ff; font-size: 3rem; font-weight: bold; }
-        .hero p { color: #adb5bd; font-size: 1.2rem; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0f1e;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container { flex: 1; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0f1e; }
+        ::-webkit-scrollbar-thumb { background: #2a3550; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3a4560; }
+
+        .navbar {
+            background: linear-gradient(135deg, #0f1629 0%, #1a2340 100%) !important;
+            border-bottom: 1px solid rgba(30, 144, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, #1e90ff, #00bfff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .navbar .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 70%;
+            height: 2px;
+            background: #1e90ff;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar .nav-link:hover::after { transform: translateX(-50%) scaleX(1); }
+
+        .card {
+            background: linear-gradient(145deg, #1a2340, #141b2d);
+            border: 1px solid rgba(42, 53, 80, 0.5);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+        }
+
+        .card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+
+        .card-header {
+            background: linear-gradient(135deg, #1e90ff22, #00bfff11);
+            border-bottom: 1px solid rgba(30,144,255,0.15);
+            color: #1e90ff;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 14px 20px;
+            letter-spacing: 0.3px;
+        }
+
+        .btn {
+            border-radius: 10px;
+            font-weight: 600;
+            padding: 10px 24px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1e90ff, #0066cc);
+            border: none;
+            box-shadow: 0 4px 15px rgba(30,144,255,0.3);
+        }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(30,144,255,0.4); }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745, #1e7e34);
+            border: none;
+            box-shadow: 0 4px 15px rgba(40,167,69,0.3);
+        }
+        .btn-success:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(40,167,69,0.4); }
+
+        .btn-outline-primary {
+            color: #1e90ff;
+            border-color: #1e90ff;
+        }
+        .btn-outline-primary:hover { background: #1e90ff; color: #fff; }
+
+        .table { color: #e0e0e0; margin-bottom: 0; }
+        .table th {
+            border-color: rgba(42, 53, 80, 0.5);
+            color: #1e90ff;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+        .table td { border-color: rgba(42, 53, 80, 0.3); vertical-align: middle; padding: 12px 8px; }
+        .table-striped > tbody > tr:nth-of-type(odd) { background: rgba(20, 27, 45, 0.3); }
+
+        .table-hover tbody tr { transition: background 0.2s ease; }
+        .table-hover tbody tr:hover { background: rgba(30, 144, 255, 0.08); }
+
+        .resultado-box {
+            background: linear-gradient(135deg, #0d1528, #141b2d);
+            border-radius: 10px;
+            padding: 8px 16px;
+            display: inline-block;
+            min-width: 70px;
+            text-align: center;
+            border: 1px solid rgba(42, 53, 80, 0.5);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .pred-input {
+            width: 55px;
+            text-align: center;
+            background: #0d1528;
+            border: 2px solid #2a3550;
+            color: #e0e0e0;
+            border-radius: 8px;
+            padding: 8px 4px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .pred-input:focus {
+            border-color: #1e90ff;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(30,144,255,0.2);
+            background: #0a0f1e;
+        }
+
+        .pred-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+        .pred-input[type=number] { -moz-appearance: textfield; }
+
+        .flash-msg {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .vs { color: #6c757d; font-weight: 600; font-size: 1rem; }
+
+        .puntos-badge {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255,215,0,0.3);
+        }
+
+        .puntos-exacto { color: #28a745; }
+        .puntos-acierto { color: #ffc107; }
+        .puntos-cero { color: #dc3545; }
+
+        .estado-jugado { color: #28a745; font-weight: 600; }
+        .estado-no-jugado { color: #ffc107; font-weight: 600; }
+
+        .grupo-badge {
+            background: rgba(42, 53, 80, 0.6);
+            border-radius: 6px;
+            padding: 3px 10px;
+            font-size: 0.7rem;
+            color: #adb5bd;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 24px 20px;
+            color: #6c757d;
+            font-size: 0.8rem;
+            background: linear-gradient(135deg, #0f1629, #141b2d);
+            border-top: 1px solid rgba(42, 53, 80, 0.3);
+            margin-top: 40px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            background: radial-gradient(ellipse at center, rgba(30,144,255,0.08) 0%, transparent 70%);
+        }
+
+        .hero h1 {
+            background: linear-gradient(135deg, #1e90ff, #00d4ff, #1e90ff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 3.5rem;
+            font-weight: 800;
+            animation: shimmer 3s ease infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 200% center; }
+        }
+
+        .hero p { color: #adb5bd; font-size: 1.2rem; font-weight: 300; }
+
+        .form-control {
+            background: #0d1528;
+            border: 2px solid #2a3550;
+            color: #e0e0e0;
+            border-radius: 10px;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #1e90ff;
+            box-shadow: 0 0 0 3px rgba(30,144,255,0.15);
+            background: #0a0f1e;
+            color: #e0e0e0;
+        }
+
+        .form-label { color: #adb5bd; font-weight: 500; }
+
+        .auth-card {
+            max-width: 420px;
+            margin: 40px auto;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .auth-card .card { padding: 10px; }
+
+        .ranking-podium {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 8px;
+            padding: 30px 0;
+        }
+
+        .podium-item {
+            text-align: center;
+            padding: 20px;
+            border-radius: 16px;
+            min-width: 120px;
+            transition: transform 0.3s ease;
+        }
+
+        .podium-item:hover { transform: translateY(-5px); }
+
+        .podium-1 {
+            background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.05));
+            border: 1px solid rgba(255,215,0,0.3);
+            transform: scale(1.1);
+        }
+        .podium-2 {
+            background: linear-gradient(135deg, rgba(192,192,192,0.15), rgba(192,192,192,0.05));
+            border: 1px solid rgba(192,192,192,0.3);
+        }
+        .podium-3 {
+            background: linear-gradient(135deg, rgba(205,127,50,0.15), rgba(205,127,50,0.05));
+            border: 1px solid rgba(205,127,50,0.3);
+        }
+
+        .podium-medal { font-size: 2.5rem; }
+        .podium-name { font-weight: 700; margin: 8px 0 4px; }
+        .podium-points { font-weight: 800; font-size: 1.5rem; }
+
+        .match-card {
+            padding: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .match-card:hover {
+            background: rgba(30,144,255,0.05);
+        }
+
+        .team-name { font-weight: 700; font-size: 1rem; }
+
+        .progress-bar-custom {
+            height: 6px;
+            background: rgba(42, 53, 80, 0.5);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1e90ff, #00bfff);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .page-title {
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #1e90ff, #00bfff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .podium-item { min-width: 90px; padding: 15px; }
+            .podium-1 { transform: scale(1.05); }
+        }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand fw-bold text-primary" href="/">Prode Mundialiyo 2026</a>
+            <a class="navbar-brand" href="/">
+                <i class="bi bi-trophy-fill me-2" style="-webkit-text-fill-color: #1e90ff;"></i>Prode Mundialiyo 2026
+            </a>
             {% if current_user.is_authenticated %}
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list text-light fs-3"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.fixture') }}">Fixture</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.predicciones') }}">Predecir</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.ranking') }}">Ranking</a></li>
-                    <li class="nav-item"><span class="nav-link text-info">{{ current_user.username }}</span></li>
-                    <li class="nav-item"><a class="nav-link text-danger" href="{{ url_for('auth.logout') }}">Salir</a></li>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.fixture') }}"><i class="bi bi-calendar-event me-1"></i>Fixture</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.predicciones') }}"><i class="bi bi-pencil-square me-1"></i>Predecir</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.ranking') }}"><i class="bi bi-bar-chart-fill me-1"></i>Ranking</a></li>
+                    <li class="nav-item ms-2">
+                        <span class="nav-link text-info">
+                            <i class="bi bi-person-circle me-1"></i>{{ current_user.username }}
+                        </span>
+                    </li>
+                    <li class="nav-item"><a class="nav-link text-danger" href="{{ url_for('auth.logout') }}"><i class="bi bi-box-arrow-right me-1"></i>Salir</a></li>
                 </ul>
             </div>
             {% endif %}
@@ -57,7 +379,8 @@
         {% if messages %}
         <div class="flash-msg">
             {% for category, message in messages %}
-            <div class="alert alert-{{ category }} alert-dismissible fade show">
+            <div class="alert alert-{{ category }} alert-dismissible fade show border-0 shadow-lg">
+                <i class="bi bi-{% if category == 'success' %}check-circle{% elif category == 'danger' %}exclamation-circle{% else %}info-circle{% endif %} me-2"></i>
                 {{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
@@ -69,7 +392,9 @@
     </div>
 
     <div class="footer">
-        Prode Mundialiyo 2026 &mdash; Los penales no cuentan, solo el resultado final
+        <i class="bi bi-trophy me-1"></i> Prode Mundialiyo 2026 &mdash; Los penales no cuentan, solo el resultado final
+        <br>
+        <small class="text-muted">⚽ Mundial 2026 &bull; 48 selecciones &bull; Resultado exacto: 3 pts &bull; Acierto: 1 pt</small>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

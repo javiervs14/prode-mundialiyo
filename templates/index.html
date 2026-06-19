@@ -1,12 +1,49 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="hero">
-    <h1>Prode Mundialiyo 2026</h1>
-    <p>Predecí los resultados del Mundial 2026 y competí con amigos.</p>
-    <p class="text-muted">Sistema de puntuación: resultado exacto 3 pts, acierto de victoria/empate 1 pt.</p>
+    <i class="bi bi-trophy-fill" style="font-size: 4rem; color: #ffd700; text-shadow: 0 0 40px rgba(255,215,0,0.3);"></i>
+    <h1 class="mt-3">Prode Mundialiyo 2026</h1>
+    <p class="mt-3">Predecí los resultados del Mundial 2026 y competí con amigos.</p>
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="row g-3 text-center">
+                <div class="col-4">
+                    <div class="card p-3 border-0" style="background: rgba(30,144,255,0.1);">
+                        <i class="bi bi-people-fill" style="font-size: 2rem; color: #1e90ff;"></i>
+                        <small class="mt-2">Multi-jugador</small>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card p-3 border-0" style="background: rgba(255,215,0,0.1);">
+                        <i class="bi bi-lightning-fill" style="font-size: 2rem; color: #ffd700;"></i>
+                        <small class="mt-2">Tiempo real</small>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card p-3 border-0" style="background: rgba(40,167,69,0.1);">
+                        <i class="bi bi-bar-chart-fill" style="font-size: 2rem; color: #28a745;"></i>
+                        <small class="mt-2">Ranking vivo</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5">
+        <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg me-2 px-5">
+            <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar sesión
+        </a>
+        <a href="{{ url_for('auth.registro') }}" class="btn btn-success btn-lg px-5">
+            <i class="bi bi-person-plus me-2"></i>Registrarse
+        </a>
+    </div>
     <div class="mt-4">
-        <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg me-2">Iniciar sesión</a>
-        <a href="{{ url_for('auth.registro') }}" class="btn btn-success btn-lg">Registrarse</a>
+        <div class="card d-inline-block p-3 border-0" style="background: rgba(255,255,255,0.03);">
+            <div class="d-flex gap-4">
+                <span><i class="bi bi-check-circle-fill text-success me-1"></i>Exacto: 3 pts</span>
+                <span><i class="bi bi-dot text-warning me-1"></i>Acierto: 1 pt</span>
+                <span><i class="bi bi-x-circle-fill text-danger me-1"></i>Error: 0 pts</span>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
