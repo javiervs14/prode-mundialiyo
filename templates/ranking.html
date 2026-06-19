@@ -2,7 +2,11 @@
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="page-title"><i class="bi bi-bar-chart-fill me-2"></i>Ranking del Prode</h2>
-    <span class="text-muted"><i class="bi bi-arrow-repeat me-1"></i>Tiempo real</span>
+    <div class="worldcup-stars">
+        <i class="bi bi-star-fill star-icon"></i>
+        <i class="bi bi-star-fill star-icon"></i>
+        <i class="bi bi-star-fill star-icon"></i>
+    </div>
 </div>
 
 {% if ranking %}
@@ -11,12 +15,12 @@
     {% for item in top3 %}
     <div class="podium-item podium-{{ loop.index }}">
         <div class="podium-medal">
-            {% if loop.index == 1 %}🥇
+            {% if loop.index == 1 %}🏆
             {% elif loop.index == 2 %}🥈
             {% else %}🥉{% endif %}
         </div>
         <div class="podium-name">{{ item.usuario.username }}</div>
-        <div class="podium-points" style="color: {% if loop.index == 1 %}#ffd700{% elif loop.index == 2 %}#c0c0c0{% else %}#cd7f32{% endif %}">
+        <div class="podium-points" style="color: {% if loop.index == 1 %}#d4af37{% elif loop.index == 2 %}#c0c0c0{% else %}#cd7f32{% endif %}">
             {{ item.puntos }}
         </div>
         <small class="text-muted">puntos</small>
@@ -43,7 +47,7 @@
                 <tr>
                     <td class="text-center align-middle">
                         {% if loop.index == 1 %}
-                        <span style="font-size: 1.5rem;">🥇</span>
+                        <span style="font-size: 1.5rem;">🏆</span>
                         {% elif loop.index == 2 %}
                         <span style="font-size: 1.5rem;">🥈</span>
                         {% elif loop.index == 3 %}
@@ -53,7 +57,7 @@
                         {% endif %}
                     </td>
                     <td class="align-middle">
-                        <i class="bi bi-person-circle me-2 text-info"></i>
+                        <i class="bi bi-person-circle me-2" style="color: #d4af37;"></i>
                         <strong>{{ item.usuario.username }}</strong>
                         <small class="text-muted ms-2">({{ item.usuario.predicciones.count() }} pred.)</small>
                     </td>
@@ -79,21 +83,24 @@
     <div class="card-body">
         <div class="row g-3">
             <div class="col-md-4">
-                <div class="text-center p-3" style="background: rgba(40,167,69,0.1); border-radius: 12px;">
+                <div class="text-center p-3" style="background: rgba(45,125,70,0.1); border-radius: 12px;">
                     <div class="puntos-badge puntos-exacto" style="font-size: 2rem;">3</div>
-                    <small class="text-success">Resultado exacto</small>
+                    <small style="color: #2d7d46; font-weight: 600;">Resultado exacto</small>
+                    <br><small class="text-muted">Goles exactos</small>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="text-center p-3" style="background: rgba(255,193,7,0.1); border-radius: 12px;">
+                <div class="text-center p-3" style="background: rgba(212,175,55,0.08); border-radius: 12px;">
                     <div class="puntos-badge puntos-acierto" style="font-size: 2rem;">1</div>
-                    <small class="text-warning">Acierto victoria/empate</small>
+                    <small style="color: #d4af37; font-weight: 600;">Acierto victoria/empate</small>
+                    <br><small class="text-muted">Ganador o empate</small>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="text-center p-3" style="background: rgba(220,53,69,0.1); border-radius: 12px;">
+                <div class="text-center p-3" style="background: rgba(220,53,69,0.08); border-radius: 12px;">
                     <div class="puntos-badge puntos-cero" style="font-size: 2rem;">0</div>
-                    <small class="text-danger">Equivocado</small>
+                    <small style="color: #dc3545; font-weight: 600;">Equivocado</small>
+                    <br><small class="text-muted">No acertaste</small>
                 </div>
             </div>
         </div>

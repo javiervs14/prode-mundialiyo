@@ -7,8 +7,18 @@ from models import db, Usuario, Partido, Prediccion
 from routes_auth import auth_bp
 from routes_main import main_bp
 from apscheduler.schedulers.background import BackgroundScheduler
+from flags import PAISES_BANDERAS
 
 app = Flask(__name__)
+
+@app.context_processor
+def inject_globals():
+    def flag_url(pais):
+        code = PAISES_BANDERAS.get(pais, "")
+        if not code:
+            return ""
+        return f"https://flagcdn.com/24x18/{code}.png"
+    return dict(flag_url=flag_url)
 app.config.from_object(Config)
 app.config["SQLALCHEMY_DATABASE_URI"] = Config.SQLALCHEMY_DATABASE_URI
 

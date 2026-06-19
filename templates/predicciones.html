@@ -25,15 +25,15 @@
     <div class="card-header">
         <i class="bi bi-{% if p.etapa == 'grupos' %}grid-3x3-gap{% elif p.etapa == 'final' %}trophy{% else %}arrow-right-circle{% endif %} me-2"></i>
         {{ etapa_labels.get(p.etapa, p.etapa) }}
-        {% if p.jornada %}<span class="badge bg-primary ms-2">Fecha {{ p.jornada }}</span>{% endif %}
+        {% if p.jornada %}<span class="badge ms-2" style="background: #d4af37; color: #0a0e1a;">Fecha {{ p.jornada }}</span>{% endif %}
     </div>
     <div class="card-body p-0">
         <table class="table table-dark table-hover mb-0">
             <thead>
                 <tr>
-                    <th style="width: 80px;">Fecha</th>
+                    <th style="width: 70px;">Fecha</th>
                     <th>Local</th>
-                    <th class="text-center" style="width: 140px;">Predicción</th>
+                    <th class="text-center" style="width: 150px;">Predicción</th>
                     <th>Visitante</th>
                     <th class="text-center" style="width: 100px;">Resultado</th>
                     <th class="text-center" style="width: 60px;">Pts</th>
@@ -45,7 +45,10 @@
                     <td class="align-middle">
                         <small class="text-muted">{{ p.fecha.strftime('%d/%m') }}</small>
                     </td>
-                    <td class="align-middle team-name">{{ p.local }}</td>
+                    <td class="align-middle team-name">
+                        <img src="{{ flag_url(p.local) }}" alt="" class="flag-img" onerror="this.style.display='none'">
+                        {{ p.local }}
+                    </td>
                     <td class="text-center align-middle">
                         {% if p.jugado %}
                             {% if p.id in preds %}
@@ -71,7 +74,10 @@
                         </div>
                         {% endif %}
                     </td>
-                    <td class="align-middle team-name">{{ p.visitante }}</td>
+                    <td class="align-middle team-name">
+                        <img src="{{ flag_url(p.visitante) }}" alt="" class="flag-img" onerror="this.style.display='none'">
+                        {{ p.visitante }}
+                    </td>
                     <td class="text-center align-middle">
                         {% if p.jugado and p.goles_local is not none %}
                         <div class="resultado-box">

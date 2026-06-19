@@ -3,7 +3,7 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="page-title"><i class="bi bi-calendar-event me-2"></i>Fixture Mundial 2026</h2>
     <a href="{{ url_for('main.predicciones') }}" class="btn btn-primary">
-        <i class="bi bi-pencil-square me-1"></i>Mis predicciones
+        <i class="bi bi-pencil-square me-1"></i>Predecir
     </a>
 </div>
 
@@ -22,11 +22,11 @@
         <table class="table table-dark table-hover mb-0">
             <thead>
                 <tr>
-                    <th style="width: 100px;">Fecha</th>
+                    <th style="width: 90px;">Fecha</th>
                     <th>Local</th>
                     <th class="text-center" style="width: 120px;">Resultado</th>
                     <th>Visitante</th>
-                    <th class="text-center" style="width: 120px;">Estado</th>
+                    <th class="text-center" style="width: 110px;">Estado</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +36,10 @@
                         <small class="text-muted">{{ p.fecha.strftime('%d/%m') }}</small>
                         <br><small class="text-muted">{{ p.fecha.strftime('%H:%M') }}</small>
                     </td>
-                    <td class="align-middle team-name">{{ p.local }}</td>
+                    <td class="align-middle team-name">
+                        <img src="{{ flag_url(p.local) }}" alt="" class="flag-img" onerror="this.style.display='none'">
+                        {{ p.local }}
+                    </td>
                     <td class="text-center align-middle">
                         {% if p.jugado and p.goles_local is not none %}
                         <div class="resultado-box">
@@ -50,7 +53,10 @@
                         </div>
                         {% endif %}
                     </td>
-                    <td class="align-middle team-name">{{ p.visitante }}</td>
+                    <td class="align-middle team-name">
+                        <img src="{{ flag_url(p.visitante) }}" alt="" class="flag-img" onerror="this.style.display='none'">
+                        {{ p.visitante }}
+                    </td>
                     <td class="text-center align-middle">
                         {% if p.jugado %}
                         <span class="estado-jugado"><i class="bi bi-check-circle-fill me-1"></i>Jugado</span>

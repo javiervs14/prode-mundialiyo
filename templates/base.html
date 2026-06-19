@@ -7,14 +7,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #0a0f1e;
-            color: #e0e0e0;
+            background: #0a0e1a;
+            color: #e8e8e8;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -23,29 +23,37 @@
         .container { flex: 1; }
 
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0f1e; }
+        ::-webkit-scrollbar-track { background: #0a0e1a; }
         ::-webkit-scrollbar-thumb { background: #2a3550; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #3a4560; }
 
         .navbar {
-            background: linear-gradient(135deg, #0f1629 0%, #1a2340 100%) !important;
-            border-bottom: 1px solid rgba(30, 144, 255, 0.2);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #0c1320 0%, #151d30 100%) !important;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.4);
         }
 
         .navbar-brand {
-            font-weight: 800;
-            font-size: 1.3rem;
-            background: linear-gradient(135deg, #1e90ff, #00bfff);
+            font-weight: 900;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #d4af37, #f0d060, #d4af37);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: shimmer 3s ease infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 200% center; }
         }
 
         .navbar .nav-link {
             position: relative;
             transition: all 0.3s ease;
             font-weight: 500;
+            font-size: 0.9rem;
         }
 
         .navbar .nav-link::after {
@@ -54,31 +62,32 @@
             bottom: 2px;
             left: 50%;
             transform: translateX(-50%) scaleX(0);
-            width: 70%;
+            width: 60%;
             height: 2px;
-            background: #1e90ff;
+            background: #d4af37;
             transition: transform 0.3s ease;
+            border-radius: 1px;
         }
 
         .navbar .nav-link:hover::after { transform: translateX(-50%) scaleX(1); }
 
         .card {
-            background: linear-gradient(145deg, #1a2340, #141b2d);
-            border: 1px solid rgba(42, 53, 80, 0.5);
+            background: linear-gradient(145deg, #161e30, #101728);
+            border: 1px solid rgba(212, 175, 55, 0.1);
             border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             overflow: hidden;
         }
 
-        .card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.35); }
 
         .card-header {
-            background: linear-gradient(135deg, #1e90ff22, #00bfff11);
-            border-bottom: 1px solid rgba(30,144,255,0.15);
-            color: #1e90ff;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(212, 175, 55, 0.02));
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            color: #d4af37;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.95rem;
             padding: 14px 20px;
             letter-spacing: 0.3px;
         }
@@ -88,51 +97,53 @@
             font-weight: 600;
             padding: 10px 24px;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #1e90ff, #0066cc);
+            background: linear-gradient(135deg, #1a5fb4, #12428a);
             border: none;
-            box-shadow: 0 4px 15px rgba(30,144,255,0.3);
+            box-shadow: 0 4px 15px rgba(26,95,180,0.3);
         }
-        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(30,144,255,0.4); }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,95,180,0.4); }
 
         .btn-success {
-            background: linear-gradient(135deg, #28a745, #1e7e34);
+            background: linear-gradient(135deg, #2d7d46, #1e5e32);
             border: none;
-            box-shadow: 0 4px 15px rgba(40,167,69,0.3);
+            box-shadow: 0 4px 15px rgba(45,125,70,0.3);
         }
-        .btn-success:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(40,167,69,0.4); }
+        .btn-success:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(45,125,70,0.4); }
 
         .btn-outline-primary {
-            color: #1e90ff;
-            border-color: #1e90ff;
+            color: #d4af37;
+            border-color: #d4af37;
         }
-        .btn-outline-primary:hover { background: #1e90ff; color: #fff; }
+        .btn-outline-primary:hover { background: #d4af37; color: #0a0e1a; }
 
         .table { color: #e0e0e0; margin-bottom: 0; }
         .table th {
-            border-color: rgba(42, 53, 80, 0.5);
-            color: #1e90ff;
+            border-color: rgba(212, 175, 55, 0.1);
+            color: #d4af37;
             font-weight: 600;
             text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 0.5px;
+            font-size: 0.7rem;
+            letter-spacing: 0.8px;
         }
         .table td { border-color: rgba(42, 53, 80, 0.3); vertical-align: middle; padding: 12px 8px; }
-        .table-striped > tbody > tr:nth-of-type(odd) { background: rgba(20, 27, 45, 0.3); }
+        .table-striped > tbody > tr:nth-of-type(odd) { background: rgba(15, 20, 35, 0.4); }
 
         .table-hover tbody tr { transition: background 0.2s ease; }
-        .table-hover tbody tr:hover { background: rgba(30, 144, 255, 0.08); }
+        .table-hover tbody tr:hover { background: rgba(212, 175, 55, 0.05); }
 
         .resultado-box {
-            background: linear-gradient(135deg, #0d1528, #141b2d);
+            background: linear-gradient(135deg, #0c1320, #121a2c);
             border-radius: 10px;
             padding: 8px 16px;
             display: inline-block;
             min-width: 70px;
             text-align: center;
-            border: 1px solid rgba(42, 53, 80, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.15);
             font-weight: 700;
             font-size: 1rem;
         }
@@ -140,9 +151,9 @@
         .pred-input {
             width: 55px;
             text-align: center;
-            background: #0d1528;
+            background: #0c1320;
             border: 2px solid #2a3550;
-            color: #e0e0e0;
+            color: #e8e8e8;
             border-radius: 8px;
             padding: 8px 4px;
             font-weight: 700;
@@ -151,10 +162,10 @@
         }
 
         .pred-input:focus {
-            border-color: #1e90ff;
+            border-color: #d4af37;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(30,144,255,0.2);
-            background: #0a0f1e;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+            background: #0a0e1a;
         }
 
         .pred-input::-webkit-inner-spin-button { -webkit-appearance: none; }
@@ -183,30 +194,44 @@
             50% { opacity: 0.6; }
         }
 
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
         .vs { color: #6c757d; font-weight: 600; font-size: 1rem; }
 
         .puntos-badge {
             font-size: 1.4rem;
             font-weight: 800;
-            color: #ffd700;
-            text-shadow: 0 0 20px rgba(255,215,0,0.3);
+            color: #d4af37;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
         }
 
-        .puntos-exacto { color: #28a745; }
-        .puntos-acierto { color: #ffc107; }
+        .puntos-exacto { color: #2d7d46; }
+        .puntos-acierto { color: #d4af37; }
         .puntos-cero { color: #dc3545; }
 
-        .estado-jugado { color: #28a745; font-weight: 600; }
-        .estado-no-jugado { color: #ffc107; font-weight: 600; }
+        .estado-jugado { color: #2d7d46; font-weight: 600; }
+        .estado-no-jugado { color: #d4af37; font-weight: 600; }
 
         .grupo-badge {
-            background: rgba(42, 53, 80, 0.6);
+            background: rgba(212, 175, 55, 0.1);
             border-radius: 6px;
             padding: 3px 10px;
             font-size: 0.7rem;
-            color: #adb5bd;
+            color: #d4af37;
             font-weight: 600;
             letter-spacing: 0.3px;
+        }
+
+        .flag-img {
+            width: 24px;
+            height: 18px;
+            border-radius: 2px;
+            object-fit: cover;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            vertical-align: middle;
         }
 
         .footer {
@@ -214,49 +239,60 @@
             padding: 24px 20px;
             color: #6c757d;
             font-size: 0.8rem;
-            background: linear-gradient(135deg, #0f1629, #141b2d);
-            border-top: 1px solid rgba(42, 53, 80, 0.3);
+            background: linear-gradient(135deg, #0c1320, #151d30);
+            border-top: 1px solid rgba(212, 175, 55, 0.08);
             margin-top: 40px;
         }
 
         .hero {
             text-align: center;
-            padding: 80px 20px 60px;
-            background: radial-gradient(ellipse at center, rgba(30,144,255,0.08) 0%, transparent 70%);
+            padding: 60px 20px 50px;
+            position: relative;
+            overflow: hidden;
         }
 
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.03) 0%, transparent 60%);
+            animation: pulse 4s ease infinite;
+            pointer-events: none;
+        }
+
+        .hero-content { position: relative; z-index: 1; }
+
         .hero h1 {
-            background: linear-gradient(135deg, #1e90ff, #00d4ff, #1e90ff);
-            background-size: 200% auto;
+            background: linear-gradient(135deg, #d4af37, #f0d060, #d4af37, #f0d060);
+            background-size: 300% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            font-size: 3.5rem;
-            font-weight: 800;
-            animation: shimmer 3s ease infinite;
+            font-size: 3.2rem;
+            font-weight: 900;
+            animation: shimmer 4s ease infinite;
+            letter-spacing: -0.5px;
         }
 
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% center; }
-            50% { background-position: 200% center; }
-        }
-
-        .hero p { color: #adb5bd; font-size: 1.2rem; font-weight: 300; }
+        .hero p { color: #adb5bd; font-size: 1.15rem; font-weight: 300; }
 
         .form-control {
-            background: #0d1528;
+            background: #0c1320;
             border: 2px solid #2a3550;
-            color: #e0e0e0;
+            color: #e8e8e8;
             border-radius: 10px;
             padding: 12px 16px;
             transition: all 0.3s ease;
         }
 
         .form-control:focus {
-            border-color: #1e90ff;
-            box-shadow: 0 0 0 3px rgba(30,144,255,0.15);
-            background: #0a0f1e;
-            color: #e0e0e0;
+            border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+            background: #0a0e1a;
+            color: #e8e8e8;
         }
 
         .form-label { color: #adb5bd; font-weight: 500; }
@@ -273,48 +309,43 @@
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            gap: 8px;
+            gap: 10px;
             padding: 30px 0;
         }
 
         .podium-item {
             text-align: center;
-            padding: 20px;
+            padding: 20px 16px;
             border-radius: 16px;
             min-width: 120px;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .podium-item:hover { transform: translateY(-5px); }
 
         .podium-1 {
-            background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.05));
-            border: 1px solid rgba(255,215,0,0.3);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(212, 175, 55, 0.03));
+            border: 1px solid rgba(212, 175, 55, 0.25);
             transform: scale(1.1);
         }
         .podium-2 {
-            background: linear-gradient(135deg, rgba(192,192,192,0.15), rgba(192,192,192,0.05));
-            border: 1px solid rgba(192,192,192,0.3);
+            background: linear-gradient(135deg, rgba(192,192,192,0.12), rgba(192,192,192,0.03));
+            border: 1px solid rgba(192,192,192,0.2);
         }
         .podium-3 {
-            background: linear-gradient(135deg, rgba(205,127,50,0.15), rgba(205,127,50,0.05));
-            border: 1px solid rgba(205,127,50,0.3);
+            background: linear-gradient(135deg, rgba(205,127,50,0.12), rgba(205,127,50,0.03));
+            border: 1px solid rgba(205,127,50,0.2);
         }
 
         .podium-medal { font-size: 2.5rem; }
-        .podium-name { font-weight: 700; margin: 8px 0 4px; }
+        .podium-name { font-weight: 700; margin: 8px 0 4px; font-size: 0.95rem; }
         .podium-points { font-weight: 800; font-size: 1.5rem; }
 
-        .match-card {
-            padding: 16px;
-            transition: all 0.3s ease;
-        }
+        .match-card { padding: 16px; transition: all 0.3s ease; }
+        .match-card:hover { background: rgba(212, 175, 55, 0.04); }
 
-        .match-card:hover {
-            background: rgba(30,144,255,0.05);
-        }
-
-        .team-name { font-weight: 700; font-size: 1rem; }
+        .team-name { font-weight: 700; font-size: 0.95rem; }
+        .team-name .flag-img { margin-right: 8px; }
 
         .progress-bar-custom {
             height: 6px;
@@ -325,25 +356,62 @@
 
         .progress-bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, #1e90ff, #00bfff);
+            background: linear-gradient(90deg, #d4af37, #f0d060);
             border-radius: 3px;
             transition: width 0.5s ease;
         }
 
         .page-title {
-            font-weight: 700;
-            font-size: 1.8rem;
-            background: linear-gradient(135deg, #1e90ff, #00bfff);
+            font-weight: 800;
+            font-size: 1.6rem;
+            background: linear-gradient(135deg, #d4af37, #f0d060);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 0;
         }
 
+        .star-icon {
+            color: #d4af37;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .arg-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #75aadb, #4a7cb5);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .worldcup-stars {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+        }
+
+        .trophy-icon { animation: float 3s ease-in-out infinite; }
+
+        .section-argentina {
+            background: linear-gradient(135deg, rgba(114, 170, 219, 0.05), rgba(74, 124, 181, 0.02));
+            border: 1px solid rgba(114, 170, 219, 0.15);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .section-argentina h4 { color: #75aadb; font-weight: 800; }
+
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
+            .hero h1 { font-size: 2rem; }
             .podium-item { min-width: 90px; padding: 15px; }
             .podium-1 { transform: scale(1.05); }
+            .team-name { font-size: 0.85rem; }
+            .flag-img { width: 20px; height: 15px; }
         }
     </style>
 </head>
@@ -351,7 +419,8 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <i class="bi bi-trophy-fill me-2" style="-webkit-text-fill-color: #1e90ff;"></i>Prode Mundialiyo 2026
+                <i class="bi bi-trophy-fill me-1" style="-webkit-text-fill-color: #d4af37; font-size: 1.1rem;"></i>
+                PRODE MUNDIALIYO <span style="font-weight: 300; -webkit-text-fill-color: #f0d060;">2026</span>
             </a>
             {% if current_user.is_authenticated %}
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -392,11 +461,17 @@
     </div>
 
     <div class="footer">
-        <i class="bi bi-trophy me-1"></i> Prode Mundialiyo 2026 &mdash; Los penales no cuentan, solo el resultado final
+        <div class="worldcup-stars mb-2">
+            <i class="bi bi-star-fill star-icon"></i>
+            <i class="bi bi-star-fill star-icon"></i>
+            <i class="bi bi-star-fill star-icon"></i>
+        </div>
+        <i class="bi bi-trophy-fill me-1" style="color: #d4af37;"></i>
+        <strong>Prode Mundialiyo 2026</strong> &mdash; Los penales no cuentan, solo el resultado final
         <br>
-        <small class="text-muted">⚽ Mundial 2026 &bull; 48 selecciones &bull; Resultado exacto: 3 pts &bull; Acierto: 1 pt</small>
+        <small class="text-muted">⚽ Mundial 2026 &bull; 48 selecciones &bull; 3 pts exacto &bull; 1 pt acierto</small>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
