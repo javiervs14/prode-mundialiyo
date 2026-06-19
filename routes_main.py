@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from models import db, Partido, Prediccion, Usuario
 from sqlalchemy import case
+import os
 
 main_bp = Blueprint("main", __name__)
 
@@ -88,3 +89,29 @@ def ranking():
         ranking_data.append({"usuario": u, "puntos": pts})
     ranking_data.sort(key=lambda x: x["puntos"], reverse=True)
     return render_template("ranking.html", ranking=ranking_data)
+
+@main_bp.route("/admin/reset")
+@login_required
+def admin_reset():
+    secret = request.args.get("secret", "")
+    if secret != os.environ.get("ADMIN_SECRET", "MUNDIALIYO2026"):
+        flash("Acceso no autorizado.", "danger")
+        return redirect(url_for("main.fixture"))
+
+    try:
+        Prediccion.query.delete()
+        Partido.query.delete()
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Error al limpiar datos: {e}", "danger")
+        return redirect(url_for("main.fixture"))
+
+    from seed import force_seed
+    ok, msg = force_seed()
+    if ok:
+        flash(msg, "success")
+    else:
+        flash(f"Error al recargar: {msg}", "danger")
+
+    return redirect(url_for("main.fixture"))
