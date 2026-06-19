@@ -1,13 +1,17 @@
 import requests
+import os
 from datetime import datetime
 from config import Config
 
-HEADERS = {"X-Auth-Token": Config.API_FOOTBALL_KEY}
 BASE = Config.API_FOOTBALL_BASE_URL
+
+def _get_headers():
+    key = os.environ.get("API_FOOTBALL_KEY", "")
+    return {"X-Auth-Token": key}
 
 def _get(endpoint):
     url = f"{BASE}/{endpoint}"
-    resp = requests.get(url, headers=HEADERS)
+    resp = requests.get(url, headers=_get_headers())
     if resp.status_code == 429:
         raise Exception("Límite de API alcanzado. Esperá 1 minuto.")
     resp.raise_for_status()

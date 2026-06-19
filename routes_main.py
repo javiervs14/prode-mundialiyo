@@ -120,8 +120,10 @@ def admin_reset():
 @login_required
 def admin_status():
     import os
-    has_key = bool(os.environ.get("API_FOOTBALL_KEY", ""))
+    key = os.environ.get("API_FOOTBALL_KEY", "")
+    has_key = bool(key)
+    key_preview = key[:6] + "..." if len(key) > 6 else "(vacía)"
     total = Partido.query.count()
     jugados = Partido.query.filter_by(jugado=True).count()
     db_url = os.environ.get("DATABASE_URL", "")[:40]
-    return render_template("admin_status.html", has_key=has_key, total=total, jugados=jugados, db_url=db_url)
+    return render_template("admin_status.html", has_key=has_key, key_preview=key_preview, total=total, jugados=jugados, db_url=db_url)
