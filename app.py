@@ -8,6 +8,7 @@ from routes_auth import auth_bp
 from routes_main import main_bp
 from apscheduler.schedulers.background import BackgroundScheduler
 from flags import PAISES_BANDERAS
+from routes_google import init_google_login
 
 app = Flask(__name__)
 
@@ -35,6 +36,7 @@ def load_user(user_id):
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(main_bp)
+init_google_login(app)
 
 scheduler = BackgroundScheduler()
 scheduler_started = False
