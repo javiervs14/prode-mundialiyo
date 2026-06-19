@@ -115,3 +115,13 @@ def admin_reset():
         flash(f"Error al recargar: {msg}", "danger")
 
     return redirect(url_for("main.fixture"))
+
+@main_bp.route("/admin/status")
+@login_required
+def admin_status():
+    import os
+    has_key = bool(os.environ.get("API_FOOTBALL_KEY", ""))
+    total = Partido.query.count()
+    jugados = Partido.query.filter_by(jugado=True).count()
+    db_url = os.environ.get("DATABASE_URL", "")[:40]
+    return render_template("admin_status.html", has_key=has_key, total=total, jugados=jugados, db_url=db_url)

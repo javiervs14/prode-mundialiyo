@@ -39,8 +39,7 @@ def seed_data():
         print(f"Se cargaron {len(parsed)} partidos.")
     except Exception as e:
         print(f"Error al conectar con la API: {e}")
-        print("Cargando datos de respaldo...")
-        _seed_fallback()
+        print("No se cargaron datos. Usá /admin/reset para reintentar.")
 
 def _seed_fallback():
     equipos_base = [
