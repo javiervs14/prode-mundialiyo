@@ -6,6 +6,7 @@ from config import Config
 from models import db, Usuario, Partido, Prediccion
 from routes_auth import auth_bp
 from routes_main import main_bp
+from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -24,6 +25,16 @@ def load_user(user_id):
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(main_bp)
+
+scheduler = BackgroundScheduler()
+scheduler_started = False
+
+def auto_update():
+    global scheduler_started
+    if not scheduler_started:
+        return
+    with app.app_context():
+        actualizar_resultados()
 
 def seed_data():
     from api_client import get_matches, get_teams, parse_matches
@@ -144,6 +155,15 @@ def actualizar_resultados():
     else:
         print("No hay resultados nuevos.")
 
+def start_scheduler():
+    global scheduler_started
+    if scheduler_started:
+        return
+    scheduler.add_job(auto_update, "interval", hours=1, id="actualizar_resultados", replace_existing=True)
+    scheduler.start()
+    scheduler_started = True
+    print("Actualizador automático iniciado (cada 1 hora).")
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
@@ -154,5 +174,6 @@ if __name__ == "__main__":
         if os.environ.get("RENDER"):
             if Partido.query.count() == 0:
                 seed_data()
+            start_scheduler()
     if not any(arg in sys.argv for arg in ["--seed", "--update"]):
         app.run(debug=True)
