@@ -1,13 +1,11 @@
 import os
+import secrets
 from flask import Blueprint, redirect, url_for, flash
 from flask_login import login_user, current_user
 from flask_dance.contrib.google import make_google_blueprint, google
 from models import db, Usuario
 
-google_auth = None
-
 def init_google_login(app):
-    global google_auth
     client_id = os.environ.get("GOOGLE_CLIENT_ID", "")
     client_secret = os.environ.get("GOOGLE_CLIENT_SECRET", "")
     if not client_id or not client_secret:
@@ -16,14 +14,13 @@ def init_google_login(app):
     google_bp = make_google_blueprint(
         client_id=client_id,
         client_secret=client_secret,
-        scope=["openid", "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"],
-        redirect_to="google_login_callback",
-        reprompt_consent=True,
+        scope=["openid", "email", "profile"],
+        redirect_to="google_authorized",
     )
     app.register_blueprint(google_bp, url_prefix="/login/google")
 
-    @app.route("/login/google/callback")
-    def google_login_callback():
+    @app.route("/login/google/done")
+    def google_authorized():
         if not google.authorized:
             return redirect(url_for("auth.login"))
 
@@ -39,7 +36,6 @@ def init_google_login(app):
         user = Usuario.query.filter_by(email=email).first()
         if not user:
             user = Usuario(username=name, email=email)
-            import secrets
             user.set_password(secrets.token_hex(16))
             db.session.add(user)
             db.session.commit()
