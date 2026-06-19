@@ -2,8 +2,15 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+import secrets
 
 db = SQLAlchemy()
+
+torneo_participantes = db.Table(
+    "torneo_participantes",
+    db.Column("torneo_id", db.Integer, db.ForeignKey("torneos.id"), primary_key=True),
+    db.Column("usuario_id", db.Integer, db.ForeignKey("usuarios.id"), primary_key=True),
+)
 
 class Usuario(UserMixin, db.Model):
     __tablename__ = "usuarios"
@@ -25,6 +32,32 @@ class Usuario(UserMixin, db.Model):
             Partido, Prediccion.partido_id == Partido.id
         ).filter(
             Prediccion.usuario_id == self.id,
+            Prediccion.puntos.isnot(None),
+            Partido.jornada >= 3
+        ).scalar()
+
+class Torneo(db.Model):
+    __tablename__ = "torneos"
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(100), nullable=False)
+    codigo = db.Column(db.String(10), unique=True, nullable=False)
+    creador_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    creador = db.relationship("Usuario", backref="torneos_creados")
+    participantes = db.relationship("Usuario", secondary=torneo_participantes, backref="torneos")
+
+    @staticmethod
+    def generar_codigo():
+        while True:
+            code = secrets.token_hex(4)[:8].upper()
+            if not Torneo.query.filter_by(codigo=code).first():
+                return code
+
+    def total_puntos_usuario(self, usuario_id):
+        return db.session.query(db.func.coalesce(db.func.sum(Prediccion.puntos), 0)).join(
+            Partido, Prediccion.partido_id == Partido.id
+        ).filter(
+            Prediccion.usuario_id == usuario_id,
             Prediccion.puntos.isnot(None),
             Partido.jornada >= 3
         ).scalar()

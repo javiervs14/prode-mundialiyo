@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="page-title"><i class="bi bi-people-fill me-2"></i>Mis Torneos</h2>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-header"><i class="bi bi-plus-circle me-2"></i>Crear nuevo torneo</div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('torneos.crear') }}">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre del torneo</label>
+                        <input type="text" name="nombre" class="form-control" placeholder="Ej: Los pibes del barrio" minlength="3" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-plus-lg me-1"></i>Crear torneo
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="card mt-3">
+            <div class="card-header"><i class="bi bi-box-arrow-in-right me-2"></i>Unirse a torneo</div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('torneos.unirse') }}">
+                    <div class="mb-3">
+                        <label class="form-label">Código de invitación</label>
+                        <input type="text" name="codigo" class="form-control" placeholder="Ej: A1B2C3D4" style="text-transform: uppercase;" maxlength="8" required>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">
+                        <i class="bi bi-person-plus me-1"></i>Unirse
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header"><i class="bi bi-list-ul me-2"></i>Mis torneos</div>
+            <div class="card-body p-0">
+                {% if torneos %}
+                <table class="table table-dark table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th class="text-center">Código</th>
+                            <th class="text-center">Participantes</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for t in torneos %}
+                        <tr>
+                            <td class="align-middle">
+                                <a href="{{ url_for('torneos.ver', torneo_id=t.id) }}" class="text-light fw-semibold text-decoration-none">
+                                    <i class="bi bi-trophy me-1" style="color: #d4af37;"></i>{{ t.nombre }}
+                                </a>
+                            </td>
+                            <td class="text-center align-middle">
+                                <code style="background: rgba(212,175,55,0.1); padding: 4px 10px; border-radius: 6px; color: #d4af37; font-weight: 700; letter-spacing: 2px;">{{ t.codigo }}</code>
+                            </td>
+                            <td class="text-center align-middle">{{ t.participantes|length }}</td>
+                            <td class="text-center align-middle">
+                                <a href="{{ url_for('torneos.ver', torneo_id=t.id) }}" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-eye me-1"></i>Ver
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div class="text-center text-muted py-5">
+                    <i class="bi bi-people" style="font-size: 3rem;"></i>
+                    <p class="mt-2">No estás en ningún torneo. Creá uno o unite con un código.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

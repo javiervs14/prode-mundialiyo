@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <a href="{{ url_for('torneos.lista') }}" class="text-muted text-decoration-none">
+            <i class="bi bi-arrow-left me-1"></i>Torneos
+        </a>
+        <h2 class="page-title mt-1"><i class="bi bi-trophy-fill me-2"></i>{{ torneo.nombre }}</h2>
+    </div>
+    <div class="text-end">
+        <code style="background: rgba(212,175,55,0.1); padding: 6px 14px; border-radius: 8px; color: #d4af37; font-weight: 700; letter-spacing: 2px; font-size: 1.2rem;">{{ torneo.codigo }}</code>
+        <br><small class="text-muted">Compartí este código</small>
+    </div>
+</div>
+
+{% if ranking %}
+<div class="ranking-podium">
+    {% set top3 = ranking[:3] %}
+    {% for item in top3 %}
+    <div class="podium-item podium-{{ loop.index }}">
+        <div class="podium-medal">
+            {% if loop.index == 1 %}🏆
+            {% elif loop.index == 2 %}🥈
+            {% else %}🥉{% endif %}
+        </div>
+        <div class="podium-name">{{ item.usuario.username }}</div>
+        <div class="podium-points" style="color: {% if loop.index == 1 %}#d4af37{% elif loop.index == 2 %}#c0c0c0{% else %}#cd7f32{% endif %}">
+            {{ item.puntos }}
+        </div>
+        <small class="text-muted">puntos</small>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="card">
+    <div class="card-header">
+        <i class="bi bi-list-ol me-2"></i>Tabla del torneo
+        <span class="badge ms-2" style="background: #d4af37; color: #0a0e1a;">{{ torneo.participantes|length }} participantes</span>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-dark table-hover mb-0">
+            <thead>
+                <tr>
+                    <th class="text-center" style="width: 50px;">#</th>
+                    <th>Usuario</th>
+                    <th class="text-center" style="width: 100px;">Puntos</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in ranking %}
+                <tr>
+                    <td class="text-center align-middle">
+                        {% if loop.index == 1 %}🥇
+                        {% elif loop.index == 2 %}🥈
+                        {% elif loop.index == 3 %}🥉
+                        {% else %}{{ loop.index }}{% endif %}
+                    </td>
+                    <td class="align-middle">
+                        <i class="bi bi-person-circle me-2" style="color: #d4af37;"></i>
+                        <strong>{{ item.usuario.username }}</strong>
+                    </td>
+                    <td class="text-center align-middle">
+                        <span class="puntos-badge">{{ item.puntos }}</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <form method="POST" action="{{ url_for('torneos.salir', torneo_id=torneo.id) }}" style="display:inline;">
+        <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Salir del torneo?')">
+            <i class="bi bi-box-arrow-left me-1"></i>Salir del torneo
+        </button>
+    </form>
+</div>
+{% endblock %}

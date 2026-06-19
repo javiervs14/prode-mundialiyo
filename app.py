@@ -6,6 +6,7 @@ from config import Config
 from models import db, Usuario, Partido, Prediccion
 from routes_auth import auth_bp
 from routes_main import main_bp
+from routes_torneos import torneos_bp
 from apscheduler.schedulers.background import BackgroundScheduler
 from flags import PAISES_BANDERAS
 from routes_google import init_google_login
@@ -46,6 +47,7 @@ def load_user(user_id):
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(main_bp)
+app.register_blueprint(torneos_bp)
 init_google_login(app)
 
 scheduler = BackgroundScheduler()
