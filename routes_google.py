@@ -1,7 +1,7 @@
 import os
 import secrets
-from flask import Blueprint, redirect, url_for, flash
-from flask_login import login_user, current_user
+from flask import redirect, url_for, flash
+from flask_login import login_user
 from flask_dance.contrib.google import make_google_blueprint, google
 from models import db, Usuario
 
@@ -16,10 +16,13 @@ def init_google_login(app):
         client_secret=client_secret,
         scope=["openid", "email", "profile"],
         redirect_to="google_authorized",
+        redirect_url="/login/google/authorized",
+        login_url="/login/google",
+        authorized_url="/login/google/authorized",
     )
-    app.register_blueprint(google_bp, url_prefix="/login/google")
+    app.register_blueprint(google_bp, url_prefix="")
 
-    @app.route("/login/google/done")
+    @app.route("/callback/google")
     def google_authorized():
         if not google.authorized:
             return redirect(url_for("auth.login"))
