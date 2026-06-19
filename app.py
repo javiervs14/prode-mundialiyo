@@ -70,6 +70,12 @@ def start_scheduler():
 def init_db():
     with app.app_context():
         db.create_all()
+        try:
+            from sqlalchemy import text
+            db.session.execute(text("ALTER TABLE predicciones ADD COLUMN IF NOT EXISTS bloqueado BOOLEAN DEFAULT FALSE"))
+            db.session.commit()
+        except:
+            db.session.rollback()
         if os.environ.get("RENDER"):
             if Partido.query.count() == 0:
                 seed_data()
