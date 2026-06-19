@@ -21,9 +21,12 @@ class Usuario(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def total_puntos(self):
-        return db.session.query(db.func.coalesce(db.func.sum(Prediccion.puntos), 0)).filter(
+        return db.session.query(db.func.coalesce(db.func.sum(Prediccion.puntos), 0)).join(
+            Partido, Prediccion.partido_id == Partido.id
+        ).filter(
             Prediccion.usuario_id == self.id,
-            Prediccion.puntos.isnot(None)
+            Prediccion.puntos.isnot(None),
+            Partido.jornada >= 3
         ).scalar()
 
 class Partido(db.Model):
