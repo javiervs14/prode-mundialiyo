@@ -26,6 +26,7 @@ def inject_globals():
             return ""
         return f"https://flagcdn.com/24x18/{code}.png"
     return dict(flag_url=flag_url)
+
 app.config.from_object(Config)
 app.config["SQLALCHEMY_DATABASE_URI"] = Config.SQLALCHEMY_DATABASE_URI
 
@@ -182,16 +183,22 @@ def start_scheduler():
     scheduler_started = True
     print("Actualizador automático iniciado (cada 1 hora).")
 
-if __name__ == "__main__":
+def init_db():
     with app.app_context():
         db.create_all()
-        if "--seed" in sys.argv:
-            seed_data()
-        if "--update" in sys.argv:
-            actualizar_resultados()
         if os.environ.get("RENDER"):
             if Partido.query.count() == 0:
                 seed_data()
             start_scheduler()
+
+init_db()
+
+if __name__ == "__main__":
+    if "--seed" in sys.argv:
+        with app.app_context():
+            seed_data()
+    if "--update" in sys.argv:
+        with app.app_context():
+            actualizar_resultados()
     if not any(arg in sys.argv for arg in ["--seed", "--update"]):
         app.run(debug=True)
