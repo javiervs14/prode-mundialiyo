@@ -84,6 +84,7 @@ def actualizar_resultados():
         return
 
     actualizados = 0
+    equipos_actualizados = 0
     for m in parsed:
         p = Partido.query.filter_by(api_id=m["api_id"]).first()
         if not p:
@@ -97,6 +98,15 @@ def actualizar_resultados():
                 fecha=m["fecha"],
             )
             db.session.add(p)
+            db.session.commit()
+
+        if p.etapa != "grupos":
+            if p.local == "Por definir" and m["local"] != "Por definir":
+                p.local = m["local"]
+                equipos_actualizados += 1
+            if p.visitante == "Por definir" and m["visitante"] != "Por definir":
+                p.visitante = m["visitante"]
+                equipos_actualizados += 1
 
         if m["jugado"] and m["goles_local"] is not None and (not p.actualizado):
             p.goles_local = m["goles_local"]
@@ -110,11 +120,13 @@ def actualizar_resultados():
                 pred.calcular_puntos()
             db.session.commit()
 
+    db.session.commit()
     if actualizados:
-        db.session.commit()
         print(f"Se actualizaron {actualizados} resultados.")
-    else:
-        print("No hay resultados nuevos.")
+    if equipos_actualizados:
+        print(f"Se actualizaron {equipos_actualizados} equipos en eliminatorias.")
+    if not actualizados and not equipos_actualizados:
+        print("No hay novedades.")
 
 def force_seed():
     Prediccion.query.delete()

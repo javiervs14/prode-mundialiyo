@@ -53,6 +53,7 @@ def parse_matches(matches, teams_dict):
 
         etapa_map = {
             "GROUP_STAGE": "grupos",
+            "ROUND_32": "r32",
             "LAST_16": "octavos",
             "QUARTER_FINALS": "cuartos",
             "SEMI_FINALS": "semis",
@@ -68,8 +69,12 @@ def parse_matches(matches, teams_dict):
         except:
             fecha = datetime.utcnow()
 
-        if not local or not visitante:
-            continue
+        if etapa == "grupos":
+            if not local or not visitante:
+                continue
+        else:
+            local = local or "Por definir"
+            visitante = visitante or "Por definir"
 
         result.append({
             "api_id": m["id"],

@@ -9,11 +9,12 @@ main_bp = Blueprint("main", __name__)
 def _orden_etapa(etapa):
     orden = {
         "grupos": 0,
-        "octavos": 1,
-        "cuartos": 2,
-        "semis": 3,
-        "tercer_puesto": 4,
-        "final": 5,
+        "r32": 1,
+        "octavos": 2,
+        "cuartos": 3,
+        "semis": 4,
+        "tercer_puesto": 5,
+        "final": 6,
     }
     return orden.get(etapa, 99)
 
@@ -66,7 +67,11 @@ def predicciones():
         flash("Predicciones guardadas.", "success")
         return redirect(url_for("main.predicciones"))
 
-    partidos = Partido.query.filter(Partido.jornada >= 3).order_by(Partido.fecha).all()
+    partidos = Partido.query.filter(
+        Partido.jornada >= 3,
+        Partido.local != "Por definir",
+        Partido.visitante != "Por definir"
+    ).order_by(Partido.fecha).all()
     partidos.sort(key=lambda p: (_orden_etapa(p.etapa), p.jornada or 0, p.fecha))
 
     predicciones_user = {
