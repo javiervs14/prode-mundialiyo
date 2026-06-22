@@ -66,7 +66,7 @@ def predicciones():
         flash("Predicciones guardadas.", "success")
         return redirect(url_for("main.predicciones"))
 
-    partidos = Partido.query.order_by(Partido.fecha).all()
+    partidos = Partido.query.filter(Partido.jornada >= 3).order_by(Partido.fecha).all()
     partidos.sort(key=lambda p: (_orden_etapa(p.etapa), p.jornada or 0, p.fecha))
 
     predicciones_user = {
@@ -74,7 +74,7 @@ def predicciones():
         for p in Prediccion.query.filter_by(usuario_id=current_user.id).all()
     }
 
-    ya_jugados_todos = Partido.query.count() > 0 and Partido.query.filter_by(jugado=False).count() == 0
+    ya_jugados_todos = Partido.query.filter(Partido.jornada >= 3, Partido.jugado == False).count() == 0
 
     return render_template(
         "predicciones.html",
