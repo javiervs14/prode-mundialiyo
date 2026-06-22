@@ -342,3 +342,243 @@ body {
   .auth-card .card-body { padding: 20px 16px; }
   .save-predictions-bar .container { flex-direction: column; text-align: center; }
 }
+
+/* ════════════════════════════════════════════════════════════
+   MOBILE-FIRST OPTIMIZATIONS
+   ════════════════════════════════════════════════════════════ */
+
+/* Prevent iOS zoom on input focus */
+@supports (-webkit-touch-callout: none) {
+  .form-control, .prediction-input, input[type="text"], input[type="email"], input[type="password"], input[type="number"] {
+    font-size: 16px !important;
+  }
+}
+
+/* Mobile device class - touch optimized */
+.mobile-device .match-card {
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.mobile-device .match-card:hover {
+  transform: none;
+}
+
+.mobile-device .prediction-input {
+  width: 56px;
+  height: 48px;
+  font-size: 1.4rem;
+}
+
+.mobile-device .team-flag {
+  width: 32px;
+  height: 22px;
+}
+
+.mobile-device .team-name {
+  font-size: 0.85rem;
+}
+
+.mobile-device .btn {
+  min-height: 48px;
+  font-size: 0.95rem;
+}
+
+.mobile-device .nav-links a {
+  padding: 14px 16px;
+  font-size: 0.95rem;
+  min-height: 48px;
+}
+
+.mobile-device .phase-tab {
+  padding: 12px 18px;
+  font-size: 0.8rem;
+}
+
+.mobile-device .table th,
+.mobile-device .table td {
+  padding: 10px 8px;
+  font-size: 0.82rem;
+}
+
+.mobile-device .hero-section {
+  min-height: 100vh;
+}
+
+.mobile-device .hero-content {
+  gap: 20px;
+  padding: 20px 16px;
+}
+
+.mobile-device .save-predictions-bar {
+  padding: 12px 0;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+}
+
+.mobile-device .navbar .container {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.mobile-device .container {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* Safe area for notched phones */
+.mobile-device .navbar {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.mobile-device .argentina-stripe {
+  top: calc(64px + env(safe-area-inset-top, 0px));
+  height: calc(100vh - 64px - env(safe-area-inset-top, 0px));
+}
+
+/* Tap feedback */
+.mobile-device .match-card:active,
+.mobile-device .btn:active,
+.mobile-device .phase-tab:active {
+  transform: scale(0.97);
+  transition: transform 0.1s ease;
+}
+
+/* Disable hover-only effects on touch */
+.mobile-device .match-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.mobile-device .card:hover {
+  transform: none;
+}
+
+.mobile-device .podium-item:hover {
+  transform: none;
+}
+
+/* Larger flash messages on mobile */
+.mobile-device .flash-msg {
+  top: calc(70px + env(safe-area-inset-top, 0px));
+  left: 12px;
+  right: 12px;
+  max-width: none;
+}
+
+/* Scroll momentum on iOS */
+.mobile-device {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent text selection on buttons/tabs (touch) */
+.mobile-device .btn,
+.mobile-device .phase-tab,
+.mobile-device .nav-links a {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ════════════════════════════════════════════════════════════
+   DESKTOP ENHANCEMENTS
+   ════════════════════════════════════════════════════════════ */
+
+.desktop-device .matches-grid {
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 20px;
+}
+
+.desktop-device .match-card {
+  padding: 24px;
+}
+
+.desktop-device .match-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(228, 0, 124, 0.08);
+}
+
+.desktop-device .team-flag {
+  width: 40px;
+  height: 28px;
+}
+
+.desktop-device .team-name {
+  font-size: 0.95rem;
+}
+
+.desktop-device .prediction-input {
+  width: 52px;
+  height: 44px;
+  font-size: 1.3rem;
+}
+
+.desktop-device .fixture-header h2 {
+  font-size: 3.2rem;
+}
+
+.desktop-device .hero-text h1 {
+  font-size: 4rem;
+}
+
+.desktop-device .hero-messi {
+  width: 380px;
+  height: 480px;
+}
+
+.desktop-device .hero-messi .trophy-float {
+  width: 120px;
+  height: 120px;
+}
+
+/* Desktop: wider container */
+.desktop-device .container {
+  max-width: 1280px;
+}
+
+/* Desktop: two-column auth on login */
+.desktop-device .hero-content {
+  gap: 80px;
+}
+
+/* Desktop: hover effects enabled */
+.desktop-device .match-card:hover::before {
+  opacity: 1;
+}
+
+.desktop-device .nav-links a:hover {
+  background: rgba(228, 0, 124, 0.12);
+}
+
+.desktop-device .phase-tab:hover {
+  border-color: rgba(228, 0, 124, 0.3);
+  color: var(--wc-white);
+  background: var(--surface-3);
+}
+
+/* Desktop: larger podium */
+.desktop-device .podium-item {
+  min-width: 140px;
+  padding: 24px 20px;
+}
+
+.desktop-device .podium-medal {
+  font-size: 3rem;
+}
+
+.desktop-device .podium-points {
+  font-size: 1.8rem;
+}
+
+/* Desktop: table more spacious */
+.desktop-device .table th {
+  padding: 16px 20px;
+}
+
+.desktop-device .table td {
+  padding: 14px 20px;
+}
+
+/* Desktop: sticky save bar with shadow */
+.desktop-device .save-predictions-bar {
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+}

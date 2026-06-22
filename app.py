@@ -1,6 +1,6 @@
 import os
 import sys
-from flask import Flask
+from flask import Flask, request
 from flask_login import LoginManager
 from config import Config
 from models import db, Usuario, Partido, Prediccion
@@ -47,7 +47,13 @@ def inject_globals():
         if not code:
             return ""
         return f"https://flagcdn.com/24x18/{code}.png"
-    return dict(flag_url=flag_url)
+
+    ua = request.headers.get("User-Agent", "").lower()
+    mobile_keywords = ["mobile", "android", "iphone", "ipod", "ipad", "windows phone", "blackberry", "opera mini"]
+    is_mobile = any(kw in ua for kw in mobile_keywords)
+    device_class = "mobile-device" if is_mobile else "desktop-device"
+
+    return dict(flag_url=flag_url, is_mobile=is_mobile, device_class=device_class)
 
 scheduler = BackgroundScheduler()
 scheduler_started = False
