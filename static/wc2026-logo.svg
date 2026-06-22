@@ -1,48 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="320" viewBox="0 0 400 320">
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
   <defs>
-    <linearGradient id="gMagenta" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="trophyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700"/>
+      <stop offset="50%" style="stop-color:#FFA500"/>
+      <stop offset="100%" style="stop-color:#CC8800"/>
+    </linearGradient>
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" style="stop-color:#E4007C"/>
-      <stop offset="100%" style="stop-color:#ff2da0"/>
-    </linearGradient>
-    <linearGradient id="gPurple" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#7B2FF7"/>
-      <stop offset="100%" style="stop-color:#9b5fff"/>
-    </linearGradient>
-    <linearGradient id="gBlue" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0047BB"/>
-      <stop offset="100%" style="stop-color:#2266dd"/>
-    </linearGradient>
-    <linearGradient id="gLime" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#A6FF00"/>
-      <stop offset="100%" style="stop-color:#ccff44"/>
+      <stop offset="33%" style="stop-color:#7B2FF7"/>
+      <stop offset="66%" style="stop-color:#0047BB"/>
+      <stop offset="100%" style="stop-color:#A6FF00"/>
     </linearGradient>
   </defs>
 
-  <!-- Trophy cup -->
-  <g transform="translate(200,90)">
-    <!-- Cup body -->
-    <path d="M-35,-10 Q-35,-55 0,-55 Q35,-55 35,-10 L30,35 L-30,35 Z" fill="url(#gMagenta)" opacity="0.95"/>
-    <!-- Cup handles -->
-    <path d="M-35,-30 Q-50,-20 -50,0 Q-50,15 -38,15" fill="none" stroke="url(#gPurple)" stroke-width="5" stroke-linecap="round"/>
-    <path d="M35,-30 Q50,-20 50,0 Q50,15 38,15" fill="none" stroke="url(#gPurple)" stroke-width="5" stroke-linecap="round"/>
-    <!-- Base -->
-    <rect x="-18" y="35" width="36" height="12" fill="url(#gBlue)" opacity="0.85"/>
-    <rect x="-28" y="47" width="56" height="10" rx="3" fill="url(#gBlue)"/>
-    <!-- Top knob -->
-    <circle cx="0" cy="-62" r="6" fill="url(#gLime)"/>
-  </g>
+  <!-- Background -->
+  <rect width="256" height="256" rx="40" fill="#0A0E27"/>
 
-  <!-- "26" big text -->
-  <text x="200" y="230" text-anchor="middle" font-size="70" font-weight="900" font-family="Arial,sans-serif" fill="url(#gMagenta)" letter-spacing="-3">26</text>
+  <!-- FIFA 2026 ring -->
+  <circle cx="128" cy="128" r="118" fill="none" stroke="url(#ringGrad)" stroke-width="2" opacity="0.4"/>
 
-  <!-- World Cup text -->
-  <text x="200" y="260" text-anchor="middle" font-size="13" font-weight="800" font-family="Arial,sans-serif" fill="url(#gLime)" letter-spacing="4">WORLD CUP</text>
+  <!-- Trophy body -->
+  <path d="M88,60 Q88,40 128,40 Q168,40 168,60 L160,110 Q160,140 128,140 Q96,140 96,110 Z"
+        fill="url(#trophyGrad)" opacity="0.95"/>
 
-  <!-- Host countries -->
-  <text x="200" y="285" text-anchor="middle" font-size="9" font-weight="600" font-family="Arial,sans-serif" fill="url(#gPurple)" letter-spacing="3">CANADA · MEXICO · USA</text>
+  <!-- Handles -->
+  <path d="M88,65 Q70,65 70,85 Q70,100 88,100" fill="none" stroke="url(#trophyGrad)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M168,65 Q186,65 186,85 Q186,100 168,100" fill="none" stroke="url(#trophyGrad)" stroke-width="6" stroke-linecap="round"/>
 
-  <!-- Small flags indicators -->
-  <circle cx="145" cy="305" r="3" fill="url(#gMagenta)"/>
-  <circle cx="200" cy="305" r="3" fill="url(#gPurple)"/>
-  <circle cx="255" cy="305" r="3" fill="url(#gLime)"/>
+  <!-- Stem + Base -->
+  <rect x="118" y="140" width="20" height="20" fill="url(#trophyGrad)" opacity="0.9"/>
+  <rect x="100" y="160" width="56" height="14" rx="3" fill="url(#trophyGrad)"/>
+  <rect x="92" y="174" width="72" height="12" rx="4" fill="url(#trophyGrad)" opacity="0.85"/>
+
+  <!-- Top knob -->
+  <circle cx="128" cy="34" r="6" fill="url(#trophyGrad)"/>
+
+  <!-- Shine -->
+  <ellipse cx="112" cy="80" rx="8" ry="25" fill="#fff" opacity="0.15"/>
+
+  <!-- "26" -->
+  <text x="128" y="212" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" font-weight="900" fill="url(#ringGrad)">26</text>
 </svg>
