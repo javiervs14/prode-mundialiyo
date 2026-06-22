@@ -120,6 +120,18 @@ def admin_reset():
 
     return redirect(url_for("main.fixture"))
 
+@main_bp.route("/admin/update")
+@login_required
+def admin_update():
+    from seed import actualizar_resultados
+    try:
+        with db.session.begin():
+            actualizar_resultados()
+        flash("Resultados actualizados desde la API.", "success")
+    except Exception as e:
+        flash(f"Error al actualizar: {e}", "danger")
+    return redirect(url_for("main.fixture"))
+
 @main_bp.route("/admin/status")
 @login_required
 def admin_status():
