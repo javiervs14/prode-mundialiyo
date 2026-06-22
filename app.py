@@ -14,27 +14,17 @@ from flask_session import Session
 from seed import seed_data, actualizar_resultados
 
 app = Flask(__name__)
-app.config["SESSION_TYPE"] = "sqlalchemy"
-app.config["SESSION_SQLALCHEMY"] = db
+app.config.from_object(Config)
+app.config["SQLALCHEMY_DATABASE_URI"] = Config.SQLALCHEMY_DATABASE_URI
+
+db.init_app(app)
+
+app.config["SESSION_TYPE"] = "filesystem"
 app.config["SESSION_PERMANENT"] = True
 app.config["PERMANENT_SESSION_LIFETIME"] = 2592000
 app.config["SESSION_USE_SIGNER"] = True
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 Session(app)
-
-@app.context_processor
-def inject_globals():
-    def flag_url(pais):
-        code = PAISES_BANDERAS.get(pais, "")
-        if not code:
-            return ""
-        return f"https://flagcdn.com/24x18/{code}.png"
-    return dict(flag_url=flag_url)
-
-app.config.from_object(Config)
-app.config["SQLALCHEMY_DATABASE_URI"] = Config.SQLALCHEMY_DATABASE_URI
-
-db.init_app(app)
 
 login_manager = LoginManager()
 login_manager.login_view = "auth.login"
@@ -50,6 +40,15 @@ app.register_blueprint(main_bp)
 app.register_blueprint(torneos_bp)
 init_google_login(app)
 
+@app.context_processor
+def inject_globals():
+    def flag_url(pais):
+        code = PAISES_BANDERAS.get(pais, "")
+        if not code:
+            return ""
+        return f"https://flagcdn.com/24x18/{code}.png"
+    return dict(flag_url=flag_url)
+
 scheduler = BackgroundScheduler()
 scheduler_started = False
 
@@ -64,7 +63,7 @@ def start_scheduler():
     global scheduler_started
     if scheduler_started:
         return
-    scheduler.add_job(auto_update, "interval", hours=1, id="actualizar_resultados", replace_existing=True)
+    scheduler.add_job(auto_update, "interval", minutes=30, id="actualizar_resultados", replace_existing=True)
     scheduler.start()
     scheduler_started = True
     print("Actualizador automático iniciado (cada 1 hora).")
