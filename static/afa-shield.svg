@@ -1,23 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="120" height="140" viewBox="0 0 120 140">
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="145" viewBox="0 0 120 145">
   <defs>
-    <linearGradient id="afa" x1="0%" y1="0%" x2="0%" y2="100%">
+    <linearGradient id="afaBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#75aadb"/>
-      <stop offset="100%" style="stop-color:#4a7cb5"/>
+      <stop offset="50%" style="stop-color:#5b9bd5"/>
+      <stop offset="100%" style="stop-color:#3d7ab8"/>
     </linearGradient>
   </defs>
-  <!-- Shield shape -->
-  <path d="M60,5 L110,20 L110,70 Q110,110 60,135 Q10,110 10,70 L10,20 Z" fill="url(#afa)" stroke="#fff" stroke-width="2"/>
-  <!-- Sun -->
-  <circle cx="60" cy="45" r="18" fill="#fcd116" stroke="#fff" stroke-width="1.5"/>
+  <!-- Shield -->
+  <path d="M60,5 L112,22 L112,72 Q112,115 60,140 Q8,115 8,72 L8,22 Z" fill="url(#afaBg)" stroke="#fff" stroke-width="2.5"/>
+  <!-- Sun face -->
+  <circle cx="60" cy="42" r="20" fill="#fcd116" stroke="#fff" stroke-width="2"/>
   <!-- Sun rays -->
-  <g stroke="#fcd116" stroke-width="2" fill="none">
-    <line x1="60" y1="20" x2="60" y2="12"/>
-    <line x1="75" y1="30" x2="82" y2="25"/>
-    <line x1="45" y1="30" x2="38" y2="25"/>
-    <line x1="80" y1="45" x2="88" y2="45"/>
-    <line x1="40" y1="45" x2="32" y2="45"/>
+  <g stroke="#fcd116" stroke-width="2.5" fill="none" stroke-linecap="round">
+    <line x1="60" y1="14" x2="60" y2="8"/>
+    <line x1="78" y1="24" x2="84" y2="18"/>
+    <line x1="42" y1="24" x2="36" y2="18"/>
+    <line x1="84" y1="42" x2="92" y2="42"/>
+    <line x1="36" y1="42" x2="28" y2="42"/>
+    <line x1="78" y1="60" x2="83" y2="66"/>
+    <line x1="42" y1="60" x2="37" y2="66"/>
   </g>
+  <!-- Sun face features -->
+  <circle cx="54" cy="40" r="2" fill="#8b6914"/>
+  <circle cx="66" cy="40" r="2" fill="#8b6914"/>
+  <path d="M52,48 Q60,54 68,48" stroke="#8b6914" stroke-width="1.5" fill="none"/>
   <!-- "AFA" text -->
-  <text x="60" y="95" text-anchor="middle" font-size="18" font-weight="900" font-family="Arial,sans-serif" fill="#fff">AFA</text>
-  <text x="60" y="115" text-anchor="middle" font-size="7" font-weight="600" font-family="Arial,sans-serif" fill="#fff" letter-spacing="1">ARGENTINA</text>
+  <text x="60" y="95" text-anchor="middle" font-size="20" font-weight="900" font-family="Arial,sans-serif" fill="#fff">AFA</text>
+  <text x="60" y="118" text-anchor="middle" font-size="8" font-weight="700" font-family="Arial,sans-serif" fill="#fff" letter-spacing="1.5">ARGENTINA</text>
 </svg>

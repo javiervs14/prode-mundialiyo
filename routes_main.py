@@ -9,7 +9,7 @@ main_bp = Blueprint("main", __name__)
 def _orden_etapa(etapa):
     orden = {
         "grupos": 0,
-        "r32": 1,
+        "dieciseisavos": 1,
         "octavos": 2,
         "cuartos": 3,
         "semis": 4,

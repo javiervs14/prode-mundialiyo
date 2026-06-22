@@ -9,7 +9,7 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/static/icon.svg",
+      "src": "/static/wc2026-logo.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any"
