@@ -53,8 +53,11 @@ def parse_matches(matches, teams_dict):
 
         etapa_map = {
             "GROUP_STAGE": "grupos",
+            "LAST_32": "dieciseisavos",
             "ROUND_32": "dieciseisavos",
+            "ROUND_OF_32": "dieciseisavos",
             "LAST_16": "octavos",
+            "ROUND_OF_16": "octavos",
             "QUARTER_FINALS": "cuartos",
             "SEMI_FINALS": "semis",
             "FINAL": "final",

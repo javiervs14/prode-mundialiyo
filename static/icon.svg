@@ -1,4 +1,48 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="100" fill="#0a0e1a"/>
-  <text x="256" y="320" text-anchor="middle" font-size="280" fill="#d4af37" font-family="sans-serif">🏆</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="320" viewBox="0 0 400 320">
+  <defs>
+    <linearGradient id="gMagenta" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E4007C"/>
+      <stop offset="100%" style="stop-color:#ff2da0"/>
+    </linearGradient>
+    <linearGradient id="gPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7B2FF7"/>
+      <stop offset="100%" style="stop-color:#9b5fff"/>
+    </linearGradient>
+    <linearGradient id="gBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0047BB"/>
+      <stop offset="100%" style="stop-color:#2266dd"/>
+    </linearGradient>
+    <linearGradient id="gLime" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A6FF00"/>
+      <stop offset="100%" style="stop-color:#ccff44"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Trophy cup -->
+  <g transform="translate(200,90)">
+    <!-- Cup body -->
+    <path d="M-35,-10 Q-35,-55 0,-55 Q35,-55 35,-10 L30,35 L-30,35 Z" fill="url(#gMagenta)" opacity="0.95"/>
+    <!-- Cup handles -->
+    <path d="M-35,-30 Q-50,-20 -50,0 Q-50,15 -38,15" fill="none" stroke="url(#gPurple)" stroke-width="5" stroke-linecap="round"/>
+    <path d="M35,-30 Q50,-20 50,0 Q50,15 38,15" fill="none" stroke="url(#gPurple)" stroke-width="5" stroke-linecap="round"/>
+    <!-- Base -->
+    <rect x="-18" y="35" width="36" height="12" fill="url(#gBlue)" opacity="0.85"/>
+    <rect x="-28" y="47" width="56" height="10" rx="3" fill="url(#gBlue)"/>
+    <!-- Top knob -->
+    <circle cx="0" cy="-62" r="6" fill="url(#gLime)"/>
+  </g>
+
+  <!-- "26" big text -->
+  <text x="200" y="230" text-anchor="middle" font-size="70" font-weight="900" font-family="Arial,sans-serif" fill="url(#gMagenta)" letter-spacing="-3">26</text>
+
+  <!-- World Cup text -->
+  <text x="200" y="260" text-anchor="middle" font-size="13" font-weight="800" font-family="Arial,sans-serif" fill="url(#gLime)" letter-spacing="4">WORLD CUP</text>
+
+  <!-- Host countries -->
+  <text x="200" y="285" text-anchor="middle" font-size="9" font-weight="600" font-family="Arial,sans-serif" fill="url(#gPurple)" letter-spacing="3">CANADA · MEXICO · USA</text>
+
+  <!-- Small flags indicators -->
+  <circle cx="145" cy="305" r="3" fill="url(#gMagenta)"/>
+  <circle cx="200" cy="305" r="3" fill="url(#gPurple)"/>
+  <circle cx="255" cy="305" r="3" fill="url(#gLime)"/>
 </svg>
