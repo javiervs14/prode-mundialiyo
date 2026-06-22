@@ -23,7 +23,7 @@
             {% else %}🥉{% endif %}
         </div>
         <div class="podium-name">{{ item.usuario.username }}</div>
-        <div class="podium-points" style="color: {% if loop.index == 1 %}#d4af37{% elif loop.index == 2 %}#c0c0c0{% else %}#cd7f32{% endif %}">
+        <div class="podium-points" style="color: {% if loop.index == 1 %}var(--wc-magenta){% elif loop.index == 2 %}var(--wc-purple){% else %}var(--wc-blue){% endif %}">
             {{ item.puntos }}
         </div>
         <small class="text-muted">puntos</small>
@@ -60,7 +60,7 @@
                         {% endif %}
                     </td>
                     <td class="align-middle">
-                        <i class="bi bi-person-circle me-2" style="color: #d4af37;"></i>
+                        <i class="bi bi-person-circle me-2" style="color: var(--wc-magenta);"></i>
                         <strong>{{ item.usuario.username }}</strong>
                         <small class="text-muted ms-2">({{ item.usuario.predicciones.count() }} pred.)</small>
                     </td>
@@ -86,16 +86,16 @@
     <div class="card-body">
         <div class="row g-3">
             <div class="col-md-4">
-                <div class="text-center p-3" style="background: rgba(45,125,70,0.1); border-radius: 12px;">
+                <div class="text-center p-3" style="background: rgba(166, 255, 0, 0.08); border-radius: 12px;">
                     <div class="puntos-badge puntos-exacto" style="font-size: 2rem;">3</div>
-                    <small style="color: #2d7d46; font-weight: 600;">Resultado exacto</small>
+                    <small style="color: var(--wc-lime); font-weight: 600;">Resultado exacto</small>
                     <br><small class="text-muted">Goles exactos</small>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="text-center p-3" style="background: rgba(212,175,55,0.08); border-radius: 12px;">
+                <div class="text-center p-3" style="background: rgba(228, 0, 124, 0.08); border-radius: 12px;">
                     <div class="puntos-badge puntos-acierto" style="font-size: 2rem;">1</div>
-                    <small style="color: #d4af37; font-weight: 600;">Acierto victoria/empate</small>
+                    <small style="color: var(--wc-magenta); font-weight: 600;">Acierto victoria/empate</small>
                     <br><small class="text-muted">Ganador o empate</small>
                 </div>
             </div>

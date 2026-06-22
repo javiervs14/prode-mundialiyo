@@ -8,7 +8,7 @@
         <h2 class="page-title mt-1"><i class="bi bi-trophy-fill me-2"></i>{{ torneo.nombre }}</h2>
     </div>
     <div class="text-end">
-        <code style="background: rgba(212,175,55,0.1); padding: 6px 14px; border-radius: 8px; color: #d4af37; font-weight: 700; letter-spacing: 2px; font-size: 1.2rem;">{{ torneo.codigo }}</code>
+        <code style="background: rgba(228,0,124,0.1); padding: 6px 14px; border-radius: 8px; color: var(--wc-magenta); font-weight: 700; letter-spacing: 2px; font-size: 1.2rem;">{{ torneo.codigo }}</code>
         <br><small class="text-muted">Compartí este código</small>
     </div>
 </div>
@@ -24,7 +24,7 @@
             {% else %}🥉{% endif %}
         </div>
         <div class="podium-name">{{ item.usuario.username }}</div>
-        <div class="podium-points" style="color: {% if loop.index == 1 %}#d4af37{% elif loop.index == 2 %}#c0c0c0{% else %}#cd7f32{% endif %}">
+        <div class="podium-points" style="color: {% if loop.index == 1 %}var(--wc-magenta){% elif loop.index == 2 %}var(--wc-purple){% else %}var(--wc-blue){% endif %}">
             {{ item.puntos }}
         </div>
         <small class="text-muted">puntos</small>
@@ -36,7 +36,7 @@
 <div class="card">
     <div class="card-header">
         <i class="bi bi-list-ol me-2"></i>Tabla del torneo
-        <span class="badge ms-2" style="background: #d4af37; color: #0a0e1a;">{{ torneo.participantes|length }} participantes</span>
+        <span class="badge ms-2" style="background: var(--wc-magenta); color: #fff;">{{ torneo.participantes|length }} participantes</span>
     </div>
     <div class="card-body p-0">
         <table class="table table-dark table-hover mb-0">
@@ -57,7 +57,7 @@
                         {% else %}{{ loop.index }}{% endif %}
                     </td>
                     <td class="align-middle">
-                        <i class="bi bi-person-circle me-2" style="color: #d4af37;"></i>
+                        <i class="bi bi-person-circle me-2" style="color: var(--wc-magenta);"></i>
                         <strong>{{ item.usuario.username }}</strong>
                     </td>
                     <td class="text-center align-middle">

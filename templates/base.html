@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#0a0e1a">
+    <meta name="theme-color" content="#000000">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Mundialiyo">
@@ -15,11 +15,21 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
 
+        :root {
+            --wc-magenta: #E4007C;
+            --wc-purple: #7B2FF7;
+            --wc-blue: #0047BB;
+            --wc-lime: #A6FF00;
+            --wc-black: #000000;
+            --wc-white: #ffffff;
+            --arg-celeste: #75aadb;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #0a0e1a;
+            background: #000000;
             color: #e8e8e8;
             min-height: 100vh;
             display: flex;
@@ -29,25 +39,27 @@
         .container { flex: 1; }
 
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0e1a; }
-        ::-webkit-scrollbar-thumb { background: #2a3550; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #3a4560; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: var(--wc-purple); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--wc-magenta); }
 
         .navbar {
-            background: linear-gradient(135deg, #0c1320 0%, #151d30 100%) !important;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 100%) !important;
+            border-bottom: 2px solid transparent;
+            border-image: linear-gradient(90deg, var(--wc-magenta), var(--wc-purple), var(--wc-blue), var(--wc-lime)) 1;
+            box-shadow: 0 4px 30px rgba(228, 0, 124, 0.15);
         }
 
         .navbar-brand {
             font-weight: 900;
             font-size: 1.2rem;
-            background: linear-gradient(135deg, #d4af37, #f0d060, #d4af37);
+            background: linear-gradient(135deg, var(--wc-magenta), var(--wc-purple), var(--wc-blue));
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: shimmer 3s ease infinite;
+            letter-spacing: -0.5px;
         }
 
         @keyframes shimmer {
@@ -70,7 +82,7 @@
             transform: translateX(-50%) scaleX(0);
             width: 60%;
             height: 2px;
-            background: #d4af37;
+            background: var(--wc-magenta);
             transition: transform 0.3s ease;
             border-radius: 1px;
         }
@@ -78,20 +90,24 @@
         .navbar .nav-link:hover::after { transform: translateX(-50%) scaleX(1); }
 
         .card {
-            background: linear-gradient(145deg, #161e30, #101728);
-            border: 1px solid rgba(212, 175, 55, 0.1);
+            background: linear-gradient(145deg, #111, #0a0a0a);
+            border: 1px solid rgba(123, 47, 247, 0.15);
             border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.3s ease;
             overflow: hidden;
         }
 
-        .card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.35); }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(228, 0, 124, 0.1);
+            border-color: rgba(166, 255, 0, 0.2);
+        }
 
         .card-header {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(212, 175, 55, 0.02));
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-            color: #d4af37;
+            background: linear-gradient(135deg, rgba(228, 0, 124, 0.08), rgba(123, 47, 247, 0.05));
+            border-bottom: 1px solid rgba(123, 47, 247, 0.15);
+            color: var(--wc-magenta);
             font-weight: 700;
             font-size: 0.95rem;
             padding: 14px 20px;
@@ -108,48 +124,62 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #1a5fb4, #12428a);
+            background: linear-gradient(135deg, var(--wc-magenta), var(--wc-purple));
             border: none;
-            box-shadow: 0 4px 15px rgba(26,95,180,0.3);
+            box-shadow: 0 4px 15px rgba(228, 0, 124, 0.3);
         }
-        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,95,180,0.4); }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(228, 0, 124, 0.4);
+            background: linear-gradient(135deg, #f0008a, #8b3fff);
+        }
 
         .btn-success {
-            background: linear-gradient(135deg, #2d7d46, #1e5e32);
+            background: linear-gradient(135deg, var(--wc-blue), #003380);
             border: none;
-            box-shadow: 0 4px 15px rgba(45,125,70,0.3);
+            box-shadow: 0 4px 15px rgba(0, 71, 187, 0.3);
         }
-        .btn-success:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(45,125,70,0.4); }
+        .btn-success:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0, 71, 187, 0.4);
+        }
 
         .btn-outline-primary {
-            color: #d4af37;
-            border-color: #d4af37;
+            color: var(--wc-lime);
+            border-color: var(--wc-lime);
         }
-        .btn-outline-primary:hover { background: #d4af37; color: #0a0e1a; }
+        .btn-outline-primary:hover { background: var(--wc-lime); color: #000; }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--wc-lime), #80cc00);
+            border: none;
+            color: #000;
+            font-weight: 700;
+        }
 
         .table { color: #e0e0e0; margin-bottom: 0; }
         .table th {
-            border-color: rgba(212, 175, 55, 0.1);
-            color: #d4af37;
+            border-color: rgba(123, 47, 247, 0.1);
+            color: var(--wc-magenta);
             font-weight: 600;
             text-transform: uppercase;
             font-size: 0.7rem;
             letter-spacing: 0.8px;
         }
-        .table td { border-color: rgba(42, 53, 80, 0.3); vertical-align: middle; padding: 12px 8px; }
-        .table-striped > tbody > tr:nth-of-type(odd) { background: rgba(15, 20, 35, 0.4); }
+        .table td { border-color: rgba(42, 42, 42, 0.5); vertical-align: middle; padding: 12px 8px; }
+        .table-striped > tbody > tr:nth-of-type(odd) { background: rgba(10, 10, 10, 0.5); }
 
         .table-hover tbody tr { transition: background 0.2s ease; }
-        .table-hover tbody tr:hover { background: rgba(212, 175, 55, 0.05); }
+        .table-hover tbody tr:hover { background: rgba(228, 0, 124, 0.05); }
 
         .resultado-box {
-            background: linear-gradient(135deg, #0c1320, #121a2c);
+            background: linear-gradient(135deg, #0a0a0a, #141414);
             border-radius: 10px;
             padding: 8px 16px;
             display: inline-block;
             min-width: 70px;
             text-align: center;
-            border: 1px solid rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(166, 255, 0, 0.15);
             font-weight: 700;
             font-size: 1rem;
         }
@@ -157,8 +187,8 @@
         .pred-input {
             width: 55px;
             text-align: center;
-            background: #0c1320;
-            border: 2px solid #2a3550;
+            background: #0a0a0a;
+            border: 2px solid #222;
             color: #e8e8e8;
             border-radius: 8px;
             padding: 8px 4px;
@@ -168,10 +198,10 @@
         }
 
         .pred-input:focus {
-            border-color: #d4af37;
+            border-color: var(--wc-magenta);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
-            background: #0a0e1a;
+            box-shadow: 0 0 0 3px rgba(228, 0, 124, 0.15);
+            background: #000;
         }
 
         .pred-input::-webkit-inner-spin-button { -webkit-appearance: none; }
@@ -205,28 +235,28 @@
             50% { transform: translateY(-10px); }
         }
 
-        .vs { color: #6c757d; font-weight: 600; font-size: 1rem; }
+        .vs { color: #555; font-weight: 600; font-size: 1rem; }
 
         .puntos-badge {
             font-size: 1.4rem;
             font-weight: 800;
-            color: #d4af37;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            color: var(--wc-lime);
+            text-shadow: 0 0 20px rgba(166, 255, 0, 0.3);
         }
 
-        .puntos-exacto { color: #2d7d46; }
-        .puntos-acierto { color: #d4af37; }
+        .puntos-exacto { color: var(--wc-lime); }
+        .puntos-acierto { color: var(--wc-magenta); }
         .puntos-cero { color: #dc3545; }
 
-        .estado-jugado { color: #2d7d46; font-weight: 600; }
-        .estado-no-jugado { color: #d4af37; font-weight: 600; }
+        .estado-jugado { color: var(--wc-lime); font-weight: 600; }
+        .estado-no-jugado { color: var(--wc-magenta); font-weight: 600; }
 
         .grupo-badge {
-            background: rgba(212, 175, 55, 0.1);
+            background: rgba(123, 47, 247, 0.15);
             border-radius: 6px;
             padding: 3px 10px;
             font-size: 0.7rem;
-            color: #d4af37;
+            color: var(--wc-purple);
             font-weight: 600;
             letter-spacing: 0.3px;
         }
@@ -236,25 +266,55 @@
             height: 18px;
             border-radius: 2px;
             object-fit: cover;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.5);
             vertical-align: middle;
         }
 
         .footer {
             text-align: center;
-            padding: 24px 20px;
-            color: #6c757d;
+            padding: 28px 20px;
+            color: #666;
             font-size: 0.8rem;
-            background: linear-gradient(135deg, #0c1320, #151d30);
-            border-top: 1px solid rgba(212, 175, 55, 0.08);
+            background: linear-gradient(135deg, #0a0a0a, #150a15);
+            border-top: 1px solid rgba(228, 0, 124, 0.1);
             margin-top: 40px;
+        }
+
+        .footer-slogan {
+            font-size: 1rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--wc-magenta), var(--wc-purple), var(--wc-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .host-flags {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 10px 0;
+        }
+
+        .host-flag {
+            width: 32px;
+            height: 24px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
         }
 
         .hero {
             text-align: center;
-            padding: 60px 20px 50px;
+            padding: 80px 20px 60px;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(135deg, rgba(0,0,0,0.88), rgba(10,5,15,0.8)),
+                        url('https://images.unsplash.com/photo-1522778526097-ce0a22ceb253?w=1200&q=60') center/cover no-repeat;
+            border-radius: 20px;
+            margin: 20px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
         }
 
         .hero::before {
@@ -264,7 +324,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.03) 0%, transparent 60%);
+            background: radial-gradient(ellipse at center, rgba(228, 0, 124, 0.08) 0%, transparent 60%);
             animation: pulse 4s ease infinite;
             pointer-events: none;
         }
@@ -272,7 +332,7 @@
         .hero-content { position: relative; z-index: 1; }
 
         .hero h1 {
-            background: linear-gradient(135deg, #d4af37, #f0d060, #d4af37, #f0d060);
+            background: linear-gradient(135deg, var(--wc-magenta), var(--wc-purple), var(--wc-blue), var(--wc-magenta));
             background-size: 300% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -283,11 +343,11 @@
             letter-spacing: -0.5px;
         }
 
-        .hero p { color: #adb5bd; font-size: 1.15rem; font-weight: 300; }
+        .hero p { color: #aaa; font-size: 1.15rem; font-weight: 300; }
 
         .form-control {
-            background: #0c1320;
-            border: 2px solid #2a3550;
+            background: #0a0a0a;
+            border: 2px solid #222;
             color: #e8e8e8;
             border-radius: 10px;
             padding: 12px 16px;
@@ -295,13 +355,13 @@
         }
 
         .form-control:focus {
-            border-color: #d4af37;
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
-            background: #0a0e1a;
+            border-color: var(--wc-magenta);
+            box-shadow: 0 0 0 3px rgba(228, 0, 124, 0.12);
+            background: #000;
             color: #e8e8e8;
         }
 
-        .form-label { color: #adb5bd; font-weight: 500; }
+        .form-label { color: #aaa; font-weight: 500; }
 
         .auth-card {
             max-width: 420px;
@@ -330,17 +390,17 @@
         .podium-item:hover { transform: translateY(-5px); }
 
         .podium-1 {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(212, 175, 55, 0.03));
-            border: 1px solid rgba(212, 175, 55, 0.25);
+            background: linear-gradient(135deg, rgba(228, 0, 124, 0.15), rgba(228, 0, 124, 0.03));
+            border: 1px solid rgba(228, 0, 124, 0.3);
             transform: scale(1.1);
         }
         .podium-2 {
-            background: linear-gradient(135deg, rgba(192,192,192,0.12), rgba(192,192,192,0.03));
-            border: 1px solid rgba(192,192,192,0.2);
+            background: linear-gradient(135deg, rgba(123, 47, 247, 0.15), rgba(123, 47, 247, 0.03));
+            border: 1px solid rgba(123, 47, 247, 0.25);
         }
         .podium-3 {
-            background: linear-gradient(135deg, rgba(205,127,50,0.12), rgba(205,127,50,0.03));
-            border: 1px solid rgba(205,127,50,0.2);
+            background: linear-gradient(135deg, rgba(0, 71, 187, 0.15), rgba(0, 71, 187, 0.03));
+            border: 1px solid rgba(0, 71, 187, 0.2);
         }
 
         .podium-medal { font-size: 2.5rem; }
@@ -348,21 +408,21 @@
         .podium-points { font-weight: 800; font-size: 1.5rem; }
 
         .match-card { padding: 16px; transition: all 0.3s ease; }
-        .match-card:hover { background: rgba(212, 175, 55, 0.04); }
+        .match-card:hover { background: rgba(228, 0, 124, 0.04); }
 
         .team-name { font-weight: 700; font-size: 0.95rem; }
         .team-name .flag-img { margin-right: 8px; }
 
         .progress-bar-custom {
             height: 6px;
-            background: rgba(42, 53, 80, 0.5);
+            background: rgba(42, 42, 42, 0.5);
             border-radius: 3px;
             overflow: hidden;
         }
 
         .progress-bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, #d4af37, #f0d060);
+            background: linear-gradient(90deg, var(--wc-magenta), var(--wc-purple));
             border-radius: 3px;
             transition: width 0.5s ease;
         }
@@ -370,7 +430,7 @@
         .page-title {
             font-weight: 800;
             font-size: 1.6rem;
-            background: linear-gradient(135deg, #d4af37, #f0d060);
+            background: linear-gradient(135deg, var(--wc-magenta), var(--wc-purple), var(--wc-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -378,16 +438,16 @@
         }
 
         .star-icon {
-            color: #d4af37;
+            color: var(--wc-lime);
             font-size: 1.2rem;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            text-shadow: 0 0 10px rgba(166, 255, 0, 0.3);
         }
 
         .arg-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: linear-gradient(135deg, #75aadb, #4a7cb5);
+            background: linear-gradient(135deg, var(--arg-celeste), #4a7cb5);
             color: white;
             padding: 4px 12px;
             border-radius: 20px;
@@ -404,13 +464,35 @@
         .trophy-icon { animation: float 3s ease-in-out infinite; }
 
         .section-argentina {
-            background: linear-gradient(135deg, rgba(114, 170, 219, 0.05), rgba(74, 124, 181, 0.02));
-            border: 1px solid rgba(114, 170, 219, 0.15);
+            background: linear-gradient(135deg, rgba(75, 170, 219, 0.05), rgba(50, 100, 160, 0.02));
+            border: 1px solid rgba(75, 170, 219, 0.15);
             border-radius: 16px;
             padding: 24px;
         }
 
-        .section-argentina h4 { color: #75aadb; font-weight: 800; }
+        .section-argentina h4 { color: var(--arg-celeste); font-weight: 800; }
+
+        .player-card {
+            background: rgba(75, 170, 219, 0.06);
+            border: 1px solid rgba(75, 170, 219, 0.1);
+            border-radius: 12px;
+            padding: 12px 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .player-card:hover {
+            transform: translateY(-3px);
+            background: rgba(75, 170, 219, 0.1);
+            border-color: rgba(75, 170, 219, 0.2);
+        }
+
+        .messi-img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border: 2px solid rgba(75, 170, 219, 0.3);
+        }
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2rem; }
@@ -435,6 +517,8 @@
             .podium-points { font-size: 1.2rem; }
             .auth-card { margin: 20px auto; }
             .flash-msg { top: 70px; right: 8px; left: 8px; }
+            .messi-img { max-width: 220px; }
+            .host-flag { width: 28px; height: 21px; }
         }
     </style>
 </head>
@@ -442,8 +526,8 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <i class="bi bi-trophy-fill me-1" style="-webkit-text-fill-color: #d4af37; font-size: 1.1rem;"></i>
-                PRODE MUNDIALIYO <span style="font-weight: 300; -webkit-text-fill-color: #f0d060;">2026</span>
+                <i class="bi bi-trophy-fill me-1" style="-webkit-text-fill-color: var(--wc-magenta); font-size: 1.1rem;"></i>
+                PRODE MUNDIALIYO <span style="font-weight: 300; -webkit-text-fill-color: var(--wc-lime);">2026</span>
             </a>
             {% if current_user.is_authenticated %}
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -456,7 +540,7 @@
                     <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.ranking') }}"><i class="bi bi-bar-chart-fill me-1"></i>Ranking</a></li>
                     <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('torneos.lista') }}"><i class="bi bi-people-fill me-1"></i>Torneos</a></li>
                     <li class="nav-item ms-2">
-                        <span class="nav-link text-info">
+                        <span class="nav-link" style="color: var(--wc-lime);">
                             <i class="bi bi-person-circle me-1"></i>{{ current_user.username }}
                         </span>
                     </li>
@@ -485,15 +569,16 @@
     </div>
 
     <div class="footer">
-        <div class="worldcup-stars mb-2">
-            <i class="bi bi-star-fill star-icon"></i>
-            <i class="bi bi-star-fill star-icon"></i>
-            <i class="bi bi-star-fill star-icon"></i>
+        <div class="host-flags">
+            <img src="https://flagcdn.com/w40/us.png" alt="USA" class="host-flag" loading="lazy">
+            <img src="https://flagcdn.com/w40/ca.png" alt="Canadá" class="host-flag" loading="lazy">
+            <img src="https://flagcdn.com/w40/mx.png" alt="México" class="host-flag" loading="lazy">
         </div>
-        <i class="bi bi-trophy-fill me-1" style="color: #d4af37;"></i>
+        <div class="footer-slogan">INCREDIBLE TOGETHER</div>
+        <i class="bi bi-trophy-fill me-1" style="color: var(--wc-magenta);"></i>
         <strong>Prode Mundialiyo 2026</strong> &mdash; Los penales no cuentan, solo el resultado final
         <br>
-        <small class="text-muted">⚽ Mundial 2026 &bull; 48 selecciones &bull; 3 pts exacto &bull; 1 pt acierto</small>
+        <small class="text-muted">⚽ Mundial 2026 &bull; 48 selecciones &bull; 3 pts exacto &bull; 1 pt acierto &bull; Sedes: USA · Canadá · México</small>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

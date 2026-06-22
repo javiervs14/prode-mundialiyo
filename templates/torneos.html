@@ -55,11 +55,11 @@
                         <tr>
                             <td class="align-middle">
                                 <a href="{{ url_for('torneos.ver', torneo_id=t.id) }}" class="text-light fw-semibold text-decoration-none">
-                                    <i class="bi bi-trophy me-1" style="color: #d4af37;"></i>{{ t.nombre }}
+                                    <i class="bi bi-trophy me-1" style="color: var(--wc-magenta);"></i>{{ t.nombre }}
                                 </a>
                             </td>
                             <td class="text-center align-middle">
-                                <code style="background: rgba(212,175,55,0.1); padding: 4px 10px; border-radius: 6px; color: #d4af37; font-weight: 700; letter-spacing: 2px;">{{ t.codigo }}</code>
+                                <code style="background: rgba(228,0,124,0.1); padding: 4px 10px; border-radius: 6px; color: var(--wc-magenta); font-weight: 700; letter-spacing: 2px;">{{ t.codigo }}</code>
                             </td>
                             <td class="text-center align-middle">{{ t.participantes|length }}</td>
                             <td class="text-center align-middle">

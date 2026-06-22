@@ -25,7 +25,7 @@
     <div class="card-header">
         <i class="bi bi-{% if p.etapa == 'grupos' %}grid-3x3-gap{% elif p.etapa == 'final' %}trophy{% else %}arrow-right-circle{% endif %} me-2"></i>
         {{ etapa_labels.get(p.etapa, p.etapa) }}
-        {% if p.jornada %}<span class="badge ms-2" style="background: #d4af37; color: #0a0e1a;">Fecha {{ p.jornada }}</span>{% endif %}
+        {% if p.jornada %}<span class="badge ms-2" style="background: var(--wc-magenta); color: #fff;">Fecha {{ p.jornada }}</span>{% endif %}
     </div>
     <div class="card-body p-0">
         <table class="table table-dark table-hover mb-0">
@@ -62,7 +62,7 @@
                             {% endif %}
                         {% elif p.id in preds and preds[p.id].bloqueado %}
                         <div class="resultado-box" style="position: relative;">
-                            <i class="bi bi-lock-fill" style="position: absolute; top: -6px; right: -6px; font-size: 0.65rem; color: #d4af37;"></i>
+                            <i class="bi bi-lock-fill" style="position: absolute; top: -6px; right: -6px; font-size: 0.65rem; color: var(--wc-magenta);"></i>
                             <span class="text-light">{{ preds[p.id].goles_local }}</span>
                             <span class="text-muted mx-1">-</span>
                             <span class="text-light">{{ preds[p.id].goles_visitante }}</span>

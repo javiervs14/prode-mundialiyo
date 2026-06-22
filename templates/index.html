@@ -3,37 +3,44 @@
 <div class="hero">
     <div class="hero-content">
         <div class="trophy-icon mb-3">
-            <i class="bi bi-trophy-fill" style="font-size: 4.5rem; color: #d4af37; text-shadow: 0 0 50px rgba(212, 175, 55, 0.4);"></i>
+            <i class="bi bi-trophy-fill" style="font-size: 4.5rem; color: var(--wc-magenta); text-shadow: 0 0 50px rgba(228, 0, 124, 0.5);"></i>
         </div>
         <div class="worldcup-stars mb-3" style="font-size: 1.5rem;">
             <i class="bi bi-star-fill star-icon"></i>
             <i class="bi bi-star-fill star-icon"></i>
             <i class="bi bi-star-fill star-icon"></i>
-            <i class="bi bi-star-fill" style="color: #d4af37; font-size: 1.5rem; text-shadow: 0 0 10px rgba(212,175,55,0.3);"></i>
         </div>
         <h1>Prode Mundialiyo 2026</h1>
         <p class="mt-2">Predecí los resultados, competí con amigos y viví la copa como nunca.</p>
         <p class="text-muted" style="font-size: 0.9rem;">
             <i class="bi bi-globe-americas me-1"></i> 48 selecciones &bull; 104 partidos &bull; Toda la emoción del Mundial
         </p>
-        <div class="row justify-content-center mt-4">
+
+        <div class="host-flags mt-3" style="margin-bottom: 20px;">
+            <img src="https://flagcdn.com/w80/us.png" alt="USA" class="host-flag" loading="lazy">
+            <img src="https://flagcdn.com/w80/ca.png" alt="Canadá" class="host-flag" loading="lazy">
+            <img src="https://flagcdn.com/w80/mx.png" alt="México" class="host-flag" loading="lazy">
+        </div>
+        <p style="font-size: 0.75rem; color: var(--wc-lime); font-weight: 700; letter-spacing: 2px; margin-bottom: 20px;">SEDES 2026</p>
+
+        <div class="row justify-content-center mt-3">
             <div class="col-md-8">
                 <div class="row g-2 text-center">
                     <div class="col-4">
-                        <div class="card p-3 border-0" style="background: rgba(212, 175, 55, 0.08);">
-                            <i class="bi bi-people-fill" style="font-size: 1.8rem; color: #d4af37;"></i>
+                        <div class="card p-3 border-0" style="background: rgba(228, 0, 124, 0.08);">
+                            <i class="bi bi-people-fill" style="font-size: 1.8rem; color: var(--wc-magenta);"></i>
                             <small class="mt-2 fw-semibold">Multi-jugador</small>
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="card p-3 border-0" style="background: rgba(212, 175, 55, 0.08);">
-                            <i class="bi bi-lightning-fill" style="font-size: 1.8rem; color: #d4af37;"></i>
+                        <div class="card p-3 border-0" style="background: rgba(123, 47, 247, 0.08);">
+                            <i class="bi bi-lightning-fill" style="font-size: 1.8rem; color: var(--wc-purple);"></i>
                             <small class="mt-2 fw-semibold">Tiempo real</small>
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="card p-3 border-0" style="background: rgba(212, 175, 55, 0.08);">
-                            <i class="bi bi-bar-chart-fill" style="font-size: 1.8rem; color: #d4af37;"></i>
+                        <div class="card p-3 border-0" style="background: rgba(166, 255, 0, 0.08);">
+                            <i class="bi bi-bar-chart-fill" style="font-size: 1.8rem; color: var(--wc-lime);"></i>
                             <small class="mt-2 fw-semibold">Ranking vivo</small>
                         </div>
                     </div>
@@ -51,8 +58,8 @@
         <div class="mt-4">
             <div class="card d-inline-block p-3 border-0" style="background: rgba(255,255,255,0.02);">
                 <div class="d-flex gap-3">
-                    <span><i class="bi bi-check-circle-fill" style="color: #2d7d46;"></i> Exacto: 3 pts</span>
-                    <span><i class="bi bi-dot" style="color: #d4af37; font-size: 1.5rem;"></i> Acierto: 1 pt</span>
+                    <span><i class="bi bi-check-circle-fill" style="color: var(--wc-lime);"></i> Exacto: 3 pts</span>
+                    <span><i class="bi bi-dot" style="color: var(--wc-magenta); font-size: 1.5rem;"></i> Acierto: 1 pt</span>
                     <span><i class="bi bi-x-circle-fill text-danger"></i> Error: 0 pts</span>
                 </div>
             </div>
@@ -62,9 +69,21 @@
 
 <div class="section-argentina mt-5 mb-4">
     <div class="row align-items-center">
-        <div class="col-md-8">
-            <div class="d-flex align-items-center gap-3 mb-3">
-                <img src="https://flagcdn.com/48x36/ar.png" alt="ARG" style="width: 36px; height: 27px; border-radius: 3px;">
+        <div class="col-md-5 text-center mb-3 mb-md-0">
+            <img src="https://images.unsplash.com/photo-1671306417538-2385d4093b93?w=300&q=60&auto=format&fit=crop" 
+                 alt="Messi - Selección Argentina" 
+                 class="messi-img"
+                 loading="lazy"
+                 onerror="this.src='https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=300&q=60';">
+            <div class="mt-3 d-flex justify-content-center align-items-center gap-3">
+                <img src="https://flagcdn.com/w320/ar.png" alt="Argentina" style="width: 50px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);" loading="lazy">
+                <div style="font-size: 0.7rem; color: var(--arg-celeste); font-weight: 700; text-align: left; line-height: 1.3;">
+                    ASOCIACIÓN<br>DEL FÚTBOL<br>ARGENTINO
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="d-flex align-items-center gap-3 mb-3 flex-wrap">
                 <h4 class="mb-0">La Scaloneta en el Mundial 2026</h4>
                 <span class="arg-badge">
                     <i class="bi bi-star-fill" style="font-size: 0.7rem;"></i>
@@ -73,30 +92,49 @@
                     Campeones del Mundo
                 </span>
             </div>
-            <p class="mb-2">Argentina llega al Mundial 2026 como campeona defensora tras el título en Qatar 2022. Con <strong>Lionel Messi</strong> como capitán y figura, la albiceleste busca su cuarta estrella.</p>
-            <div class="d-flex flex-wrap gap-3 mt-3">
-                <div><small class="text-muted">Figuras:</small></div>
-                <span><i class="bi bi-person me-1" style="color: #75aadb;"></i>Lionel Messi <small class="text-muted">(capitán)</small></span>
-                <span><i class="bi bi-person me-1" style="color: #75aadb;"></i>Emiliano Martínez</span>
-                <span><i class="bi bi-person me-1" style="color: #75aadb;"></i>Julian Álvarez</span>
-                <span><i class="bi bi-person me-1" style="color: #75aadb;"></i>Enzo Fernández</span>
-                <span><i class="bi bi-person me-1" style="color: #75aadb;"></i>Alexis Mac Allister</span>
-            </div>
-        </div>
-        <div class="col-md-4 text-center mt-3 mt-md-0">
-            <div class="card p-3 border-0" style="background: rgba(212, 175, 55, 0.08);">
-                <div class="worldcup-stars mb-2" style="font-size: 1.8rem;">
-                    <i class="bi bi-star-fill star-icon"></i>
-                    <i class="bi bi-star-fill star-icon"></i>
-                    <i class="bi bi-star-fill star-icon"></i>
+            <p class="mb-3">Argentina llega al Mundial 2026 como campeona defensora tras el título en Qatar 2022. Con <strong style="color: var(--arg-celeste);">Lionel Messi</strong> como capitán y figura, la albiceleste busca su cuarta estrella.</p>
+            <div class="row g-2 mt-2">
+                <div class="col-6 col-md-4">
+                    <div class="player-card">
+                        <i class="bi bi-person-badge" style="font-size: 1.5rem; color: var(--arg-celeste);"></i>
+                        <div class="fw-bold mt-1" style="font-size: 0.85rem;">Messi</div>
+                        <small class="text-muted">Capitán · 10</small>
+                    </div>
                 </div>
-                <div style="font-size: 2.5rem; color: #d4af37;">
-                    <i class="bi bi-trophy-fill"></i>
+                <div class="col-6 col-md-4">
+                    <div class="player-card">
+                        <i class="bi bi-shield-fill" style="font-size: 1.5rem; color: var(--arg-celeste);"></i>
+                        <div class="fw-bold mt-1" style="font-size: 0.85rem;">Dibu Martínez</div>
+                        <small class="text-muted">Arquero</small>
+                    </div>
                 </div>
-                <div class="fw-bold mt-2" style="color: #d4af37;">3 ESTRELLAS</div>
-                <small class="text-muted">Argentina es tricampeón del mundo</small>
-                <div class="mt-2" style="font-size: 0.75rem;">
-                    <span class="text-muted">1978</span> &bull; <span class="text-muted">1986</span> &bull; <span class="text-muted">2022</span>
+                <div class="col-6 col-md-4">
+                    <div class="player-card">
+                        <i class="bi bi-lightning-fill" style="font-size: 1.5rem; color: var(--arg-celeste);"></i>
+                        <div class="fw-bold mt-1" style="font-size: 0.85rem;">Julián Álvarez</div>
+                        <small class="text-muted">Delantero</small>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="player-card">
+                        <i class="bi bi-magic" style="font-size: 1.5rem; color: var(--arg-celeste);"></i>
+                        <div class="fw-bold mt-1" style="font-size: 0.85rem;">Enzo Fernández</div>
+                        <small class="text-muted">Mediocampo</small>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="player-card">
+                        <i class="bi bi-stars" style="font-size: 1.5rem; color: var(--arg-celeste);"></i>
+                        <div class="fw-bold mt-1" style="font-size: 0.85rem;">Mac Allister</div>
+                        <small class="text-muted">Mediocampo</small>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="player-card" style="background: rgba(166, 255, 0, 0.06); border-color: rgba(166, 255, 0, 0.15);">
+                        <i class="bi bi-trophy" style="font-size: 1.5rem; color: var(--wc-lime);"></i>
+                        <div class="fw-bold mt-1" style="font-size: 0.85rem; color: var(--wc-lime);">3 Estrellas</div>
+                        <small class="text-muted">Campeón del mundo</small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -104,15 +142,24 @@
 </div>
 
 <div class="text-center mb-4">
-    <div class="d-flex justify-content-center gap-4 flex-wrap">
+    <div class="d-flex justify-content-center gap-4 flex-wrap align-items-center">
         <div class="text-center">
-            <div style="font-size: 2rem;">🇦🇷</div>
-            <div style="font-size: 2rem;">🇧🇷</div>
-            <div style="font-size: 2rem;">🇫🇷</div>
-            <div style="font-size: 2rem;">🇩🇪</div>
-            <div style="font-size: 2rem;">🇪🇸</div>
+            <img src="https://flagcdn.com/w80/ar.png" alt="ARG" style="width: 48px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.4);" loading="lazy">
+            <div><small>1978</small></div>
+        </div>
+        <div class="text-center">
+            <img src="https://flagcdn.com/w80/ar.png" alt="ARG" style="width: 48px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.4);" loading="lazy">
+            <div><small>1986</small></div>
+        </div>
+        <div class="text-center">
+            <img src="https://flagcdn.com/w80/ar.png" alt="ARG" style="width: 48px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.4);" loading="lazy">
+            <div><small>2022</small></div>
+        </div>
+        <div class="text-center">
+            <div style="font-size: 2rem;">🏆</div>
+            <div><small style="color: var(--wc-lime);">2026?</small></div>
         </div>
     </div>
-    <small class="text-muted">Las selecciones más ganadoras de la historia</small>
+    <small class="text-muted mt-2 d-block">Los años de gloria de la Albiceleste</small>
 </div>
 {% endblock %}
