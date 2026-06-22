@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="140" viewBox="0 0 120 140">
+  <defs>
+    <linearGradient id="afa" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#75aadb"/>
+      <stop offset="100%" style="stop-color:#4a7cb5"/>
+    </linearGradient>
+  </defs>
+  <!-- Shield shape -->
+  <path d="M60,5 L110,20 L110,70 Q110,110 60,135 Q10,110 10,70 L10,20 Z" fill="url(#afa)" stroke="#fff" stroke-width="2"/>
+  <!-- Sun -->
+  <circle cx="60" cy="45" r="18" fill="#fcd116" stroke="#fff" stroke-width="1.5"/>
+  <!-- Sun rays -->
+  <g stroke="#fcd116" stroke-width="2" fill="none">
+    <line x1="60" y1="20" x2="60" y2="12"/>
+    <line x1="75" y1="30" x2="82" y2="25"/>
+    <line x1="45" y1="30" x2="38" y2="25"/>
+    <line x1="80" y1="45" x2="88" y2="45"/>
+    <line x1="40" y1="45" x2="32" y2="45"/>
+  </g>
+  <!-- "AFA" text -->
+  <text x="60" y="95" text-anchor="middle" font-size="18" font-weight="900" font-family="Arial,sans-serif" fill="#fff">AFA</text>
+  <text x="60" y="115" text-anchor="middle" font-size="7" font-weight="600" font-family="Arial,sans-serif" fill="#fff" letter-spacing="1">ARGENTINA</text>
+</svg>
