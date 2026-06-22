@@ -1,86 +1,86 @@
 {% extends "base.html" %}
+
+{% block title %}Fixture — Prode Mundialiyo 2026{% endblock %}
+
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="page-title"><i class="bi bi-calendar-event me-2"></i>Fixture Mundial 2026</h2>
-    <a href="{{ url_for('main.predicciones') }}" class="btn btn-primary">
-        <i class="bi bi-pencil-square me-1"></i>Predecir
-    </a>
-</div>
+<section class="fixture-page">
+    <div class="container">
 
-{% set etapa_labels = {"grupos": "Fase de Grupos", "dieciseisavos": "Dieciseisavos de Final", "octavos": "Octavos de Final", "cuartos": "Cuartos de Final", "semis": "Semifinales", "tercer_puesto": "Tercer Puesto", "final": "Final"} %}
-{% set ns = namespace(current_etapa='') %}
+        <!-- Header -->
+        <div class="fixture-header">
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.2); border-radius: 100px; padding: 5px 14px; margin-bottom: 14px; font-size: 0.75rem; color: var(--wc-gold); font-weight: 600; letter-spacing: 0.5px;">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="#FFD700"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+                CAMPEONES DEL MUNDO
+            </div>
+            <h2>FIXTURE <span class="text-gradient-magenta">MUNDIAL 2026</span></h2>
+            <p class="fixture-subtitle">
+                <a href="{{ url_for('main.predicciones') }}" style="color: var(--wc-lime); text-decoration: none; font-weight: 600;">Ir a predecir →</a>
+            </p>
+        </div>
 
-{% for p in partidos %}
-{% if p.etapa != ns.current_etapa %}
-{% set ns.current_etapa = p.etapa %}
-<div class="card mb-4">
-    <div class="card-header">
-        <i class="bi bi-{% if p.etapa == 'grupos' %}grid-3x3-gap{% elif p.etapa == 'final' %}trophy-fill{% else %}arrow-right-circle{% endif %} me-2"></i>
-        {{ etapa_labels.get(p.etapa, p.etapa) }}
-    </div>
-    <div class="card-body p-0">
-        <table class="table table-dark table-hover mb-0">
-            <thead>
-                <tr>
-                    <th style="width: 90px;">Fecha</th>
-                    <th>Local</th>
-                    <th class="text-center" style="width: 120px;">Resultado</th>
-                    <th>Visitante</th>
-                    <th class="text-center" style="width: 110px;">Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-{% endif %}
-                <tr class="match-card">
-                    <td class="align-middle">
-                        <small class="text-muted">{{ p.fecha.strftime('%d/%m') }}</small>
-                        <br><small class="text-muted">{{ p.fecha.strftime('%H:%M') }}</small>
-                    </td>
-                    <td class="align-middle team-name">
-                        {% if p.local != "Por definir" %}
-                        <img src="{{ flag_url(p.local) }}" alt="" class="flag-img" onerror="this.style.display='none'">
-                        {{ p.local }}
-                        {% else %}
-                        <span style="color: #555; font-style: italic; font-weight: 400;">Por definir</span>
-                        {% endif %}
-                    </td>
-                    <td class="text-center align-middle">
-                        {% if p.jugado and p.goles_local is not none %}
-                        <div class="resultado-box">
-                            <span class="text-light">{{ p.goles_local }}</span>
-                            <span class="text-muted mx-1">-</span>
-                            <span class="text-light">{{ p.goles_visitante }}</span>
+        <!-- Phase Tabs -->
+        <div class="phase-tabs">
+            <button class="phase-tab active" data-phase="all">Todos</button>
+            <button class="phase-tab" data-phase="grupos">Fase de Grupos</button>
+            <button class="phase-tab" data-phase="dieciseisavos">16vos</button>
+            <button class="phase-tab" data-phase="octavos">Octavos</button>
+            <button class="phase-tab" data-phase="cuartos">Cuartos</button>
+            <button class="phase-tab" data-phase="semis">Semifinal</button>
+            <button class="phase-tab" data-phase="final">Final</button>
+        </div>
+
+        {% set etapa_labels = {"grupos": "Fase de Grupos", "dieciseisavos": "Dieciseisavos de Final", "octavos": "Octavos de Final", "cuartos": "Cuartos de Final", "semis": "Semifinales", "tercer_puesto": "Tercer Puesto", "final": "Final"} %}
+        {% set ns = namespace(current_etapa='') %}
+
+        {% for p in partidos %}
+        {% if p.etapa != ns.current_etapa %}
+        {% set ns.current_etapa = p.etapa %}
+        <div class="match-group" data-phase="{{ p.etapa }}" style="opacity: 0;">
+            <div class="match-group-title">{{ etapa_labels.get(p.etapa, p.etapa) }}</div>
+            <div class="matches-grid">
+        {% endif %}
+
+                <div class="match-card">
+                    <div class="match-meta">
+                        <span class="match-date">{{ p.fecha.strftime('%d %b') }} · {{ p.fecha.strftime('%H:%M') }}</span>
+                        {% if p.grupo %}<span class="match-venue">{{ p.grupo }}</span>{% endif %}
+                    </div>
+                    <div class="match-body">
+                        <div class="team">
+                            {% if p.local != "Por definir" %}
+                            <img src="{{ flag_url(p.local) }}" alt="{{ p.local }}" class="team-flag" loading="lazy" width="36" height="24" onerror="this.style.display='none'">
+                            {% endif %}
+                            <span class="team-name">{% if p.local == "Por definir" %}<span style="color:#555; font-style:italic;">Por definir</span>{% else %}{{ p.local }}{% endif %}</span>
                         </div>
-                        {% else %}
-                        <div class="resultado-box">
-                            <span class="text-muted">- : -</span>
+                        <span class="match-vs">VS</span>
+                        <div class="team away">
+                            {% if p.visitante != "Por definir" %}
+                            <img src="{{ flag_url(p.visitante) }}" alt="{{ p.visitante }}" class="team-flag" loading="lazy" width="36" height="24" onerror="this.style.display='none'">
+                            {% endif %}
+                            <span class="team-name">{% if p.visitante == "Por definir" %}<span style="color:#555; font-style:italic;">Por definir</span>{% else %}{{ p.visitante }}{% endif %}</span>
                         </div>
-                        {% endif %}
-                    </td>
-                    <td class="align-middle team-name">
-                        {% if p.visitante != "Por definir" %}
-                        <img src="{{ flag_url(p.visitante) }}" alt="" class="flag-img" onerror="this.style.display='none'">
-                        {{ p.visitante }}
-                        {% else %}
-                        <span style="color: #555; font-style: italic; font-weight: 400;">Por definir</span>
-                        {% endif %}
-                    </td>
-                    <td class="text-center align-middle">
-                        {% if p.jugado %}
-                        <span class="estado-jugado"><i class="bi bi-check-circle-fill me-1"></i>Jugado</span>
-                        {% else %}
-                        <span class="estado-no-jugado"><i class="bi bi-clock-fill me-1"></i>Próximo</span>
-                        {% endif %}
-                        {% if p.grupo %}
-                        <span class="grupo-badge ms-1">{{ p.grupo }}</span>
-                        {% endif %}
-                    </td>
-                </tr>
-{% if loop.nextitem is undefined or loop.nextitem.etapa != p.etapa %}
-            </tbody>
-        </table>
+                    </div>
+                    {% if p.jugado and p.goles_local is not none %}
+                    <div class="match-result">
+                        <span class="result-score">{{ p.goles_local }} - {{ p.goles_visitante }}</span>
+                    </div>
+                    <div class="match-status played">Jugado</div>
+                    {% else %}
+                    <div class="match-result">
+                        <span class="result-pending">- : -</span>
+                    </div>
+                    <div class="match-status upcoming">Próximo</div>
+                    {% endif %}
+                </div>
+
+        {% if loop.nextitem is undefined or loop.nextitem.etapa != p.etapa %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+
     </div>
-</div>
-{% endif %}
-{% endfor %}
+</section>
 {% endblock %}

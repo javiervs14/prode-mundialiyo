@@ -3,589 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Prode Mundialiyo 2026 — Pronosticá todos los partidos del Mundial FIFA 2026. 3 pts por resultado exacto, 1 pt por acierto.">
+    <meta name="theme-color" content="#0A0E27">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Mundialiyo">
-    <link rel="apple-touch-icon" href="/static/wc2026-logo.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Prode Mundialiyo 2026">
+    <meta property="og:description" content="Pronosticá todos los partidos del Mundial FIFA 2026. 48 selecciones, 3 sedes, 1 campeon.">
+    <meta property="og:type" content="website">
+
+    <title>{% block title %}Prode Mundialiyo 2026{% endblock %}</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/static/css/worldcup2026.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/static/img/favicon.svg">
+    <link rel="apple-touch-icon" href="/static/img/favicon.svg">
     <link rel="manifest" href="/static/manifest.json">
-    <title>Prode Mundialiyo 2026</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
-
-        :root {
-            --wc-magenta: #E4007C;
-            --wc-purple: #7B2FF7;
-            --wc-blue: #0047BB;
-            --wc-lime: #A6FF00;
-            --wc-black: #000000;
-            --wc-white: #ffffff;
-            --arg-celeste: #75aadb;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #000000;
-            color: #e8e8e8;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .container { flex: 1; }
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: var(--wc-purple); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--wc-magenta); }
-
-        .navbar {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 100%) !important;
-            border-bottom: 2px solid transparent;
-            border-image: linear-gradient(90deg, var(--wc-magenta), var(--wc-purple), var(--wc-blue), var(--wc-lime)) 1;
-            box-shadow: 0 4px 30px rgba(228, 0, 124, 0.15);
-        }
-
-        .navbar-brand {
-            font-weight: 900;
-            font-size: 1.2rem;
-            background: linear-gradient(135deg, var(--wc-magenta), var(--wc-purple), var(--wc-blue));
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shimmer 3s ease infinite;
-            letter-spacing: -0.5px;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% center; }
-            50% { background-position: 200% center; }
-        }
-
-        .navbar .nav-link {
-            position: relative;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .navbar .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            left: 50%;
-            transform: translateX(-50%) scaleX(0);
-            width: 60%;
-            height: 2px;
-            background: var(--wc-magenta);
-            transition: transform 0.3s ease;
-            border-radius: 1px;
-        }
-
-        .navbar .nav-link:hover::after { transform: translateX(-50%) scaleX(1); }
-
-        .card {
-            background: linear-gradient(145deg, #111, #0a0a0a);
-            border: 1px solid rgba(123, 47, 247, 0.15);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.3s ease;
-            overflow: hidden;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(228, 0, 124, 0.1);
-            border-color: rgba(166, 255, 0, 0.2);
-        }
-
-        .card-header {
-            background: linear-gradient(135deg, rgba(228, 0, 124, 0.08), rgba(123, 47, 247, 0.05));
-            border-bottom: 1px solid rgba(123, 47, 247, 0.15);
-            color: var(--wc-magenta);
-            font-weight: 700;
-            font-size: 0.95rem;
-            padding: 14px 20px;
-            letter-spacing: 0.3px;
-        }
-
-        .btn {
-            border-radius: 10px;
-            font-weight: 600;
-            padding: 10px 24px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--wc-magenta), var(--wc-purple));
-            border: none;
-            box-shadow: 0 4px 15px rgba(228, 0, 124, 0.3);
-        }
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(228, 0, 124, 0.4);
-            background: linear-gradient(135deg, #f0008a, #8b3fff);
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, var(--wc-blue), #003380);
-            border: none;
-            box-shadow: 0 4px 15px rgba(0, 71, 187, 0.3);
-        }
-        .btn-success:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(0, 71, 187, 0.4);
-        }
-
-        .btn-outline-primary {
-            color: var(--wc-lime);
-            border-color: var(--wc-lime);
-        }
-        .btn-outline-primary:hover { background: var(--wc-lime); color: #000; }
-
-        .btn-warning {
-            background: linear-gradient(135deg, var(--wc-lime), #80cc00);
-            border: none;
-            color: #000;
-            font-weight: 700;
-        }
-
-        .table { color: #e0e0e0; margin-bottom: 0; }
-        .table th {
-            border-color: rgba(123, 47, 247, 0.1);
-            color: var(--wc-magenta);
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 0.8px;
-        }
-        .table td { border-color: rgba(42, 42, 42, 0.5); vertical-align: middle; padding: 12px 8px; }
-        .table-striped > tbody > tr:nth-of-type(odd) { background: rgba(10, 10, 10, 0.5); }
-
-        .table-hover tbody tr { transition: background 0.2s ease; }
-        .table-hover tbody tr:hover { background: rgba(228, 0, 124, 0.05); }
-
-        .resultado-box {
-            background: linear-gradient(135deg, #0a0a0a, #141414);
-            border-radius: 10px;
-            padding: 8px 16px;
-            display: inline-block;
-            min-width: 70px;
-            text-align: center;
-            border: 1px solid rgba(166, 255, 0, 0.15);
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .pred-input {
-            width: 55px;
-            text-align: center;
-            background: #0a0a0a;
-            border: 2px solid #222;
-            color: #e8e8e8;
-            border-radius: 8px;
-            padding: 8px 4px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .pred-input:focus {
-            border-color: var(--wc-magenta);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(228, 0, 124, 0.15);
-            background: #000;
-        }
-
-        .pred-input::-webkit-inner-spin-button { -webkit-appearance: none; }
-        .pred-input[type=number] { -moz-appearance: textfield; }
-
-        .flash-msg {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            z-index: 9999;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .vs { color: #555; font-weight: 600; font-size: 1rem; }
-
-        .puntos-badge {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--wc-lime);
-            text-shadow: 0 0 20px rgba(166, 255, 0, 0.3);
-        }
-
-        .puntos-exacto { color: var(--wc-lime); }
-        .puntos-acierto { color: var(--wc-magenta); }
-        .puntos-cero { color: #dc3545; }
-
-        .estado-jugado { color: var(--wc-lime); font-weight: 600; }
-        .estado-no-jugado { color: var(--wc-magenta); font-weight: 600; }
-
-        .grupo-badge {
-            background: rgba(123, 47, 247, 0.15);
-            border-radius: 6px;
-            padding: 3px 10px;
-            font-size: 0.7rem;
-            color: var(--wc-purple);
-            font-weight: 600;
-            letter-spacing: 0.3px;
-        }
-
-        .flag-img {
-            width: 24px;
-            height: 18px;
-            border-radius: 2px;
-            object-fit: cover;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-            vertical-align: middle;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 28px 20px;
-            color: #666;
-            font-size: 0.8rem;
-            background: linear-gradient(135deg, #0a0a0a, #150a15);
-            border-top: 1px solid rgba(228, 0, 124, 0.1);
-            margin-top: 40px;
-        }
-
-        .footer-slogan {
-            font-size: 1rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--wc-magenta), var(--wc-purple), var(--wc-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-
-        .host-flags {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 10px 0;
-        }
-
-        .host-flag {
-            width: 32px;
-            height: 24px;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-        }
-
-        .hero {
-            text-align: center;
-            padding: 80px 20px 60px;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, rgba(0,0,0,0.88), rgba(10,5,15,0.8)),
-                        url('https://images.unsplash.com/photo-1522778526097-ce0a22ceb253?w=1200&q=60') center/cover no-repeat;
-            border-radius: 20px;
-            margin: 20px 0;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(ellipse at center, rgba(228, 0, 124, 0.08) 0%, transparent 60%);
-            animation: pulse 4s ease infinite;
-            pointer-events: none;
-        }
-
-        .hero-content { position: relative; z-index: 1; }
-
-        .hero h1 {
-            background: linear-gradient(135deg, var(--wc-magenta), var(--wc-purple), var(--wc-blue), var(--wc-magenta));
-            background-size: 300% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 3.2rem;
-            font-weight: 900;
-            animation: shimmer 4s ease infinite;
-            letter-spacing: -0.5px;
-        }
-
-        .hero p { color: #aaa; font-size: 1.15rem; font-weight: 300; }
-
-        .form-control {
-            background: #0a0a0a;
-            border: 2px solid #222;
-            color: #e8e8e8;
-            border-radius: 10px;
-            padding: 12px 16px;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
-            border-color: var(--wc-magenta);
-            box-shadow: 0 0 0 3px rgba(228, 0, 124, 0.12);
-            background: #000;
-            color: #e8e8e8;
-        }
-
-        .form-label { color: #aaa; font-weight: 500; }
-
-        .auth-card {
-            max-width: 420px;
-            margin: 40px auto;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .auth-card .card { padding: 10px; }
-
-        .ranking-podium {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            gap: 10px;
-            padding: 30px 0;
-        }
-
-        .podium-item {
-            text-align: center;
-            padding: 20px 16px;
-            border-radius: 16px;
-            min-width: 120px;
-            transition: all 0.3s ease;
-        }
-
-        .podium-item:hover { transform: translateY(-5px); }
-
-        .podium-1 {
-            background: linear-gradient(135deg, rgba(228, 0, 124, 0.15), rgba(228, 0, 124, 0.03));
-            border: 1px solid rgba(228, 0, 124, 0.3);
-            transform: scale(1.1);
-        }
-        .podium-2 {
-            background: linear-gradient(135deg, rgba(123, 47, 247, 0.15), rgba(123, 47, 247, 0.03));
-            border: 1px solid rgba(123, 47, 247, 0.25);
-        }
-        .podium-3 {
-            background: linear-gradient(135deg, rgba(0, 71, 187, 0.15), rgba(0, 71, 187, 0.03));
-            border: 1px solid rgba(0, 71, 187, 0.2);
-        }
-
-        .podium-medal { font-size: 2.5rem; }
-        .podium-name { font-weight: 700; margin: 8px 0 4px; font-size: 0.95rem; }
-        .podium-points { font-weight: 800; font-size: 1.5rem; }
-
-        .match-card { padding: 16px; transition: all 0.3s ease; }
-        .match-card:hover { background: rgba(228, 0, 124, 0.04); }
-
-        .team-name { font-weight: 700; font-size: 0.95rem; }
-        .team-name .flag-img { margin-right: 8px; }
-
-        .progress-bar-custom {
-            height: 6px;
-            background: rgba(42, 42, 42, 0.5);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--wc-magenta), var(--wc-purple));
-            border-radius: 3px;
-            transition: width 0.5s ease;
-        }
-
-        .page-title {
-            font-weight: 800;
-            font-size: 1.6rem;
-            background: linear-gradient(135deg, var(--wc-magenta), var(--wc-purple), var(--wc-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0;
-        }
-
-        .star-icon {
-            color: var(--wc-lime);
-            font-size: 1.2rem;
-            text-shadow: 0 0 10px rgba(166, 255, 0, 0.3);
-        }
-
-        .arg-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: linear-gradient(135deg, var(--arg-celeste), #4a7cb5);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-
-        .worldcup-stars {
-            display: flex;
-            gap: 4px;
-            justify-content: center;
-        }
-
-        .trophy-icon { animation: float 3s ease-in-out infinite; }
-
-        .section-argentina {
-            background: linear-gradient(135deg, rgba(75, 170, 219, 0.05), rgba(50, 100, 160, 0.02));
-            border: 1px solid rgba(75, 170, 219, 0.15);
-            border-radius: 16px;
-            padding: 24px;
-        }
-
-        .section-argentina h4 { color: var(--arg-celeste); font-weight: 800; }
-
-        .player-card {
-            background: rgba(75, 170, 219, 0.06);
-            border: 1px solid rgba(75, 170, 219, 0.1);
-            border-radius: 12px;
-            padding: 12px 8px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        .player-card:hover {
-            transform: translateY(-3px);
-            background: rgba(75, 170, 219, 0.1);
-            border-color: rgba(75, 170, 219, 0.2);
-        }
-
-        .messi-img {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            border: 2px solid rgba(75, 170, 219, 0.3);
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .podium-item { min-width: 90px; padding: 15px; }
-            .podium-1 { transform: scale(1.05); }
-            .team-name { font-size: 0.85rem; }
-            .flag-img { width: 20px; height: 15px; }
-            .navbar-brand { font-size: 1rem; }
-            .container { padding-left: 8px; padding-right: 8px; }
-            .btn { padding: 8px 16px; font-size: 0.85rem; }
-            .btn-lg { padding: 10px 20px; }
-            .page-title { font-size: 1.3rem; }
-            .table th, .table td { padding: 8px 4px; font-size: 0.8rem; }
-            .pred-input { width: 42px; font-size: 0.9rem; padding: 6px 2px; }
-            .resultado-box { padding: 6px 10px; min-width: 55px; font-size: 0.85rem; }
-            .card-header { padding: 10px 14px; font-size: 0.85rem; }
-            .section-argentina { padding: 16px; }
-            .section-argentina h4 { font-size: 1rem; }
-            .ranking-podium { gap: 6px; padding: 16px 0; }
-            .podium-item { padding: 12px 8px; min-width: 80px; }
-            .podium-medal { font-size: 1.8rem; }
-            .podium-points { font-size: 1.2rem; }
-            .auth-card { margin: 20px auto; }
-            .flash-msg { top: 70px; right: 8px; left: 8px; }
-            .messi-img { max-width: 220px; }
-            .host-flag { width: 28px; height: 21px; }
-        }
-    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg">
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-logo">MUNDIALIYO 2026</div>
+        <div class="loading-bar">
+            <div id="loading-bar" class="loading-bar-fill"></div>
+        </div>
+        <div class="loading-text">Cargando el mundial...</div>
+    </div>
+
+    <!-- Argentina stripe decoration -->
+    <div class="argentina-stripe"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar" role="navigation" aria-label="Navegacion principal">
         <div class="container">
-            <a class="navbar-brand" href="/">
-                <img src="/static/wc2026-logo.svg" alt="" style="width: 28px; height: auto; vertical-align: middle; margin-right: 4px;">
-                PRODE MUNDIALIYO <span style="font-weight: 300; -webkit-text-fill-color: var(--wc-lime);">2026</span>
+            <a class="navbar-brand" href="{{ url_for('main.index') }}" aria-label="Inicio Prode Mundialiyo 2026">
+                <svg viewBox="0 0 32 32" width="32" height="32" style="flex-shrink:0">
+                    <circle cx="16" cy="16" r="15" fill="#75AADB"/>
+                    <circle cx="16" cy="12" r="3" fill="#FFD700" opacity="0.9"/>
+                    <circle cx="8" cy="8" r="2" fill="#FFD700" opacity="0.8"/>
+                    <circle cx="24" cy="8" r="2" fill="#FFD700" opacity="0.8"/>
+                    <path d="M6 16 Q16 28 26 16" fill="#F5F5F5" opacity="0.3"/>
+                </svg>
+                PRODE MUNDIALIYO <span class="brand-year">2026</span>
+                <span class="brand-3stars" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+                </span>
             </a>
-            {% if current_user.is_authenticated %}
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <i class="bi bi-list text-light fs-3"></i>
+
+            <button class="mobile-toggle" aria-label="Menu" aria-expanded="false">
+                <i class="bi bi-list"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.fixture') }}"><i class="bi bi-calendar-event me-1"></i>Fixture</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.predicciones') }}"><i class="bi bi-pencil-square me-1"></i>Predecir</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.ranking') }}"><i class="bi bi-bar-chart-fill me-1"></i>Ranking</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('torneos.lista') }}"><i class="bi bi-people-fill me-1"></i>Torneos</a></li>
-                    <li class="nav-item ms-2">
-                        <span class="nav-link" style="color: var(--wc-lime);">
-                            <i class="bi bi-person-circle me-1"></i>{{ current_user.username }}
-                        </span>
-                    </li>
-                    <li class="nav-item"><a class="nav-link text-danger" href="{{ url_for('auth.logout') }}"><i class="bi bi-box-arrow-right me-1"></i>Salir</a></li>
-                </ul>
-            </div>
-            {% endif %}
+
+            <ul class="nav-links">
+                {% if current_user and current_user.is_authenticated %}
+                <li><a href="{{ url_for('main.fixture') }}" class="{% if request.path == url_for('main.fixture') %}active{% endif %}"><i class="bi bi-trophy"></i> Fixture</a></li>
+                <li><a href="{{ url_for('main.predicciones') }}" class="{% if request.path == url_for('main.predicciones') %}active{% endif %}"><i class="bi bi-pencil-square"></i> Predecir</a></li>
+                <li><a href="{{ url_for('main.ranking') }}" class="{% if request.path == url_for('main.ranking') %}active{% endif %}"><i class="bi bi-bar-chart"></i> Ranking</a></li>
+                <li><a href="{{ url_for('torneos.lista') }}" class="{% if request.path == url_for('torneos.lista') %}active{% endif %}"><i class="bi bi-people"></i> Torneos</a></li>
+                <li>
+                    <a href="#" class="nav-user">
+                        <span class="user-avatar">{{ current_user.username[0]|upper }}</span>
+                        {{ current_user.username }}
+                    </a>
+                </li>
+                <li><a href="{{ url_for('auth.logout') }}"><i class="bi bi-box-arrow-right"></i> Salir</a></li>
+                {% else %}
+                <li><a href="{{ url_for('auth.login') }}"><i class="bi bi-box-arrow-in-right"></i> Ingresar</a></li>
+                <li><a href="{{ url_for('auth.registro') }}" class="text-gradient-lime" style="font-weight:700">Registrate</a></li>
+                {% endif %}
+            </ul>
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <!-- Main Content -->
+    <main>
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         <div class="flash-msg">
             {% for category, message in messages %}
-            <div class="alert alert-{{ category }} alert-dismissible fade show border-0 shadow-lg">
-                <i class="bi bi-{% if category == 'success' %}check-circle{% elif category == 'danger' %}exclamation-circle{% else %}info-circle{% endif %} me-2"></i>
+            <div class="alert alert-{{ category }} alert-dismissible fade show border-0 shadow-lg" role="alert">
+                <i class="bi bi-{% if category == 'danger' %}exclamation-circle{% elif category == 'success' %}check-circle{% else %}info-circle{% endif %} me-2"></i>
                 {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
             </div>
             {% endfor %}
         </div>
         {% endif %}
         {% endwith %}
-        {% block content %}{% endblock %}
-    </div>
 
-    <div class="footer">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
         <div class="host-flags">
-            <img src="https://flagcdn.com/w40/us.png" alt="USA" class="host-flag" loading="lazy">
-            <img src="https://flagcdn.com/w40/ca.png" alt="Canadá" class="host-flag" loading="lazy">
-            <img src="https://flagcdn.com/w40/mx.png" alt="México" class="host-flag" loading="lazy">
+            <img src="https://flagcdn.com/w40/us.png" alt="Estados Unidos" class="host-flag" loading="lazy" width="36" height="24">
+            <img src="https://flagcdn.com/w40/ca.png" alt="Canada" class="host-flag" loading="lazy" width="36" height="24">
+            <img src="https://flagcdn.com/w40/mx.png" alt="Mexico" class="host-flag" loading="lazy" width="36" height="24">
         </div>
         <div class="footer-slogan">INCREDIBLE TOGETHER</div>
-        <i class="bi bi-trophy-fill me-1" style="color: var(--wc-magenta);"></i>
-        <strong>Prode Mundialiyo 2026</strong> &mdash; Los penales no cuentan, solo el resultado final
-        <br>
-        <small class="text-muted">⚽ Mundial 2026 &bull; 48 selecciones &bull; 3 pts exacto &bull; 1 pt acierto &bull; Sedes: USA · Canadá · México</small>
-    </div>
+        <div class="footer-brand">
+            <i class="bi bi-trophy-fill trophy-icon me-1"></i>
+            <strong>Prode Mundialiyo 2026</strong> — Los penales no cuentan, solo el resultado final
+        </div>
+        <div class="footer-tagline">
+            ⚽ Mundial 2026 &bull; 48 selecciones &bull; 3 pts exacto &bull; 1 pt acierto &bull; Sedes: USA · Canadá · México
+        </div>
+    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/static/service-worker.js');
-        }
-    </script>
+    <!-- JS -->
+    <script src="/static/js/main.js"></script>
+    {% block extra_scripts %}{% endblock %}
 </body>
 </html>

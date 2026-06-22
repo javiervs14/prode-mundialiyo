@@ -1,48 +1,52 @@
 {% extends "base.html" %}
-{% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="page-title"><i class="bi bi-speedometer2 me-2"></i>Diagnóstico</h2>
-</div>
 
-<div class="row g-3">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">Estado del sistema</div>
-            <div class="card-body">
-                <ul class="list-unstyled mb-0">
-                    <li class="mb-2">
-                        <strong>API Key:</strong>
-                        {% if has_key %}
-                        <span class="text-success"><i class="bi bi-check-circle-fill"></i> {{ key_preview }}</span>
-                        {% else %}
-                        <span class="text-danger"><i class="bi bi-x-circle-fill"></i> FALTA</span>
-                        {% endif %}
-                    </li>
-                    <li class="mb-2">
-                        <strong>Partidos cargados:</strong> {{ total }}
-                    </li>
-                    <li class="mb-2">
-                        <strong>Partidos jugados:</strong> {{ jugados }}
-                    </li>
-                    <li class="mb-2">
-                        <strong>Base de datos:</strong> <code class="text-muted">{{ db_url }}</code>
-                    </li>
-                </ul>
+{% block title %}Diagnóstico — Prode Mundialiyo 2026{% endblock %}
+
+{% block content %}
+<section class="fixture-page">
+    <div class="container">
+        <div class="fixture-header">
+            <h2>DIAGNÓSTICO <span class="text-gradient-magenta">SISTEMA</span></h2>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <div class="card">
+                <div class="card-header"><i class="bi bi-speedometer2"></i> Estado del sistema</div>
+                <div class="card-body">
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 12px;">
+                            <strong>API Key:</strong>
+                            {% if has_key %}
+                            <span style="color: var(--wc-lime);"><i class="bi bi-check-circle-fill"></i> {{ key_preview }}</span>
+                            {% else %}
+                            <span style="color: #dc3545;"><i class="bi bi-x-circle-fill"></i> FALTA</span>
+                            {% endif %}
+                        </li>
+                        <li style="margin-bottom: 12px;">
+                            <strong>Partidos cargados:</strong> {{ total }}
+                        </li>
+                        <li style="margin-bottom: 12px;">
+                            <strong>Partidos jugados:</strong> {{ jugados }}
+                        </li>
+                        <li style="margin-bottom: 12px;">
+                            <strong>Base de datos:</strong> <code style="color: var(--text-secondary);">{{ db_url }}</code>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><i class="bi bi-lightning"></i> Acciones</div>
+                <div class="card-body">
+                    <a href="{{ url_for('main.admin_update') }}" class="btn btn-primary" style="margin-bottom: 12px;">
+                        <i class="bi bi-cloud-download"></i> Actualizar resultados
+                    </a>
+                    <a href="{{ url_for('main.admin_reset', secret='MUNDIALIYO2026') }}" class="btn btn-warning" style="width: 100%;">
+                        <i class="bi bi-arrow-repeat"></i> Resetear fixture
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">Acciones</div>
-            <div class="card-body">
-                <a href="{{ url_for('main.admin_update') }}" class="btn btn-primary w-100 mb-2">
-                    <i class="bi bi-cloud-download me-1"></i>Actualizar resultados (API)
-                </a>
-                <a href="{{ url_for('main.admin_reset', secret='MUNDIALIYO2026') }}" class="btn btn-warning w-100">
-                    <i class="bi bi-arrow-repeat me-1"></i>Resetear fixture (recargar)
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+</section>
 {% endblock %}

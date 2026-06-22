@@ -1,34 +1,145 @@
 {% extends "base.html" %}
+
+{% block title %}Iniciar sesión — Prode Mundialiyo 2026{% endblock %}
+
 {% block content %}
-<div class="auth-card">
-    <div class="card">
-        <div class="card-header text-center">
-            <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar sesión
-        </div>
-        <div class="card-body p-4">
-            <form method="POST">
-                <div class="mb-3">
-                    <label class="form-label"><i class="bi bi-person me-1"></i>Usuario</label>
-                    <input type="text" name="username" class="form-control" placeholder="Tu usuario" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label"><i class="bi bi-lock me-1"></i>Contraseña</label>
-                    <input type="password" name="password" class="form-control" placeholder="Tu contraseña" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100 py-2 mt-2">
-                    <i class="bi bi-box-arrow-in-right me-2"></i>Ingresar
-                </button>
-            </form>
-            <div class="text-center mt-3">
-                <div class="text-muted mb-2"><small>o continuá con</small></div>
-                <a href="/google/login" class="btn btn-outline-light w-100 py-2">
-                    <i class="bi bi-google me-2" style="color: #4285F4;"></i>Google
-                </a>
+<section class="hero-section">
+    <!-- Background: Argentina celebration -->
+    <div class="hero-bg" aria-hidden="true">
+        <img
+            src="https://sfile.chatglm.cn/images-ppt/fe2fd210aa5a.jpg"
+            alt=""
+            loading="eager"
+            fetchpriority="high"
+            style="object-position: center 30%;"
+            onerror="this.style.display='none';"
+        >
+    </div>
+
+    <div class="hero-content">
+        <!-- Left: Text + Stats -->
+        <div class="hero-text">
+            <div class="argentina-badge">
+                <span class="stars">
+                    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+                </span>
+                CAMPEONES DEL MUNDO
             </div>
-            <p class="mt-3 text-center text-muted mb-0">
-                ¿No tenés cuenta? <a href="{{ url_for('auth.registro') }}" class="text-info fw-semibold">Registrate</a>
+
+            <h1>
+                PRODE<br>
+                <span class="highlight">MUNDIALIYO</span><br>
+                2026
+            </h1>
+
+            <p class="hero-subtitle">Pronosticá. Competí. Ganá.</p>
+            <p class="hero-tagline">
+                El torneo de pronósticos más grande del Mundial FIFA 2026.<br>
+                48 selecciones, 104 partidos, 1 solo campeón del prode.
             </p>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">48</div>
+                    <div class="stat-label">Selecciones</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">104</div>
+                    <div class="stat-label">Partidos</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">3pts</div>
+                    <div class="stat-label">Exacto</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">1pt</div>
+                    <div class="stat-label">Acierto</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Messi image -->
+        <div class="hero-messi">
+            <img
+                src="https://sfile.chatglm.cn/images-ppt/e03689118558.jpeg"
+                alt="Lionel Messi con la Copa del Mundo"
+                loading="eager"
+                fetchpriority="high"
+                onerror="this.src='/static/messi.svg';"
+            >
+            <div class="trophy-float">
+                <img
+                    src="https://sfile.chatglm.cn/images-ppt/cc280218e808.jpg"
+                    alt="Copa del Mundo FIFA"
+                    loading="lazy"
+                    onerror="this.parentElement.style.display='none';"
+                >
+            </div>
         </div>
     </div>
-</div>
+
+    <!-- Login Card -->
+    <div class="auth-card" style="position:relative; z-index:20; margin-top:-40px;">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-box-arrow-in-right"></i>
+                Iniciar sesión
+            </div>
+            <div class="card-body">
+                <form method="POST" autocomplete="on">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">
+                            <i class="bi bi-person"></i> Usuario
+                        </label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            class="form-control"
+                            placeholder="Tu usuario"
+                            required
+                            autocomplete="username"
+                            autofocus
+                        >
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">
+                            <i class="bi bi-lock"></i> Contraseña
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="form-control"
+                            placeholder="Tu contraseña"
+                            required
+                            autocomplete="current-password"
+                        >
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-box-arrow-in-right"></i> Ingresar
+                    </button>
+                </form>
+
+                <div class="divider-text">o continuá con</div>
+
+                <a href="/google/login" class="btn btn-google">
+                    <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                    </svg>
+                    Google
+                </a>
+
+                <p class="auth-footer">
+                    ¿No tenés cuenta? <a href="{{ url_for('auth.registro') }}">Registrate</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

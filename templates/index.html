@@ -1,155 +1,95 @@
 {% extends "base.html" %}
+
+{% block title %}Prode Mundialiyo 2026 — Pronosticá el Mundial{% endblock %}
+
 {% block content %}
-<div class="hero">
+{% if current_user and current_user.is_authenticated %}
+<script>window.location.href = '{{ url_for("main.fixture") }}';</script>
+{% else %}
+
+<section class="hero-section">
+    <div class="hero-bg" aria-hidden="true">
+        <img
+            src="https://sfile.chatglm.cn/images-ppt/fe2fd210aa5a.jpg"
+            alt=""
+            loading="eager"
+            fetchpriority="high"
+            style="object-position: center 30%;"
+            onerror="this.style.display='none';"
+        >
+    </div>
+
     <div class="hero-content">
-        <img src="/static/wc2026-logo.svg" alt="Mundial 2026" style="width: 120px; height: auto; margin-bottom: 16px; filter: drop-shadow(0 0 20px rgba(228,0,124,0.3));" loading="lazy">
-        <h1>Prode Mundialiyo 2026</h1>
-        <p class="mt-2">Predecí los resultados, competí con amigos y viví la copa como nunca.</p>
-        <p class="text-muted" style="font-size: 0.9rem;">
-            <i class="bi bi-globe-americas me-1"></i> 48 selecciones &bull; 104 partidos &bull; Toda la emoción del Mundial
-        </p>
-
-        <div class="host-flags mt-3" style="margin-bottom: 20px;">
-            <img src="https://flagcdn.com/w80/us.png" alt="USA" class="host-flag" loading="lazy">
-            <img src="https://flagcdn.com/w80/ca.png" alt="Canadá" class="host-flag" loading="lazy">
-            <img src="https://flagcdn.com/w80/mx.png" alt="México" class="host-flag" loading="lazy">
-        </div>
-        <p style="font-size: 0.75rem; color: var(--wc-lime); font-weight: 700; letter-spacing: 2px; margin-bottom: 20px;">SEDES 2026 · INCREDIBLE TOGETHER</p>
-
-        <div class="row justify-content-center mt-3">
-            <div class="col-md-8">
-                <div class="row g-2 text-center">
-                    <div class="col-4">
-                        <div class="card p-3 border-0" style="background: rgba(228, 0, 124, 0.08);">
-                            <i class="bi bi-people-fill" style="font-size: 1.8rem; color: var(--wc-magenta);"></i>
-                            <small class="mt-2 fw-semibold">Multi-jugador</small>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="card p-3 border-0" style="background: rgba(123, 47, 247, 0.08);">
-                            <i class="bi bi-lightning-fill" style="font-size: 1.8rem; color: var(--wc-purple);"></i>
-                            <small class="mt-2 fw-semibold">Tiempo real</small>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="card p-3 border-0" style="background: rgba(166, 255, 0, 0.08);">
-                            <i class="bi bi-bar-chart-fill" style="font-size: 1.8rem; color: var(--wc-lime);"></i>
-                            <small class="mt-2 fw-semibold">Ranking vivo</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="mt-5">
-            <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg me-2 px-5">
-                <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar sesión
-            </a>
-            <a href="{{ url_for('auth.registro') }}" class="btn btn-success btn-lg px-5">
-                <i class="bi bi-person-plus me-2"></i>Registrarse
-            </a>
-        </div>
-        <div class="mt-4">
-            <div class="card d-inline-block p-3 border-0" style="background: rgba(255,255,255,0.02);">
-                <div class="d-flex gap-3">
-                    <span><i class="bi bi-check-circle-fill" style="color: var(--wc-lime);"></i> Exacto: 3 pts</span>
-                    <span><i class="bi bi-dot" style="color: var(--wc-magenta); font-size: 1.5rem;"></i> Acierto: 1 pt</span>
-                    <span><i class="bi bi-x-circle-fill text-danger"></i> Error: 0 pts</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="section-argentina mt-5 mb-4">
-    <div class="row align-items-center">
-        <div class="col-md-5 text-center mb-3 mb-md-0">
-            <img src="/static/messi.svg" 
-                 alt="Messi - Selección Argentina" 
-                 class="messi-img"
-                 loading="lazy">
-            <div class="mt-3 d-flex justify-content-center align-items-center gap-3">
-                <img src="/static/afa-shield.svg" alt="AFA" style="width: 55px; height: auto; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));" loading="lazy">
-                <img src="https://flagcdn.com/w320/ar.png" alt="Argentina" style="width: 50px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);" loading="lazy">
-            </div>
-        </div>
-        <div class="col-md-7">
-            <div class="d-flex align-items-center gap-3 mb-3 flex-wrap">
-                <h4 class="mb-0">La Scaloneta en el Mundial 2026</h4>
-                <span class="arg-badge">
-                    <i class="bi bi-star-fill" style="font-size: 0.7rem;"></i>
-                    <i class="bi bi-star-fill" style="font-size: 0.7rem;"></i>
-                    <i class="bi bi-star-fill" style="font-size: 0.7rem;"></i>
-                    Campeones del Mundo
+        <div class="hero-text">
+            <div class="argentina-badge">
+                <span class="stars">
+                    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
                 </span>
+                CAMPEONES DEL MUNDO
             </div>
-            <p class="mb-3">Argentina llega al Mundial 2026 como campeona defensora tras el título en Qatar 2022. Con <strong style="color: var(--arg-celeste);">Lionel Messi</strong> como capitán y figura, la albiceleste busca su cuarta estrella.</p>
-            <div class="row g-2 mt-2">
-                <div class="col-6 col-md-4">
-                    <div class="player-card">
-                        <i class="bi bi-person-badge" style="font-size: 1.5rem; color: var(--arg-celeste);"></i>
-                        <div class="fw-bold mt-1" style="font-size: 0.85rem;">Messi</div>
-                        <small class="text-muted">Capitán · 10</small>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4">
-                    <div class="player-card">
-                        <i class="bi bi-shield-fill" style="font-size: 1.5rem; color: var(--arg-celeste);"></i>
-                        <div class="fw-bold mt-1" style="font-size: 0.85rem;">Dibu Martínez</div>
-                        <small class="text-muted">Arquero</small>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4">
-                    <div class="player-card">
-                        <i class="bi bi-lightning-fill" style="font-size: 1.5rem; color: var(--arg-celeste);"></i>
-                        <div class="fw-bold mt-1" style="font-size: 0.85rem;">Julián Álvarez</div>
-                        <small class="text-muted">Delantero</small>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4">
-                    <div class="player-card">
-                        <i class="bi bi-magic" style="font-size: 1.5rem; color: var(--arg-celeste);"></i>
-                        <div class="fw-bold mt-1" style="font-size: 0.85rem;">Enzo Fernández</div>
-                        <small class="text-muted">Mediocampo</small>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4">
-                    <div class="player-card">
-                        <i class="bi bi-stars" style="font-size: 1.5rem; color: var(--arg-celeste);"></i>
-                        <div class="fw-bold mt-1" style="font-size: 0.85rem;">Mac Allister</div>
-                        <small class="text-muted">Mediocampo</small>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4">
-                    <div class="player-card" style="background: rgba(166, 255, 0, 0.06); border-color: rgba(166, 255, 0, 0.15);">
-                        <i class="bi bi-trophy" style="font-size: 1.5rem; color: var(--wc-lime);"></i>
-                        <div class="fw-bold mt-1" style="font-size: 0.85rem; color: var(--wc-lime);">3 Estrellas</div>
-                        <small class="text-muted">Campeón del mundo</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="text-center mb-4">
-    <div class="d-flex justify-content-center gap-4 flex-wrap align-items-center">
-        <div class="text-center">
-            <img src="https://flagcdn.com/w80/ar.png" alt="ARG" style="width: 48px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.4);" loading="lazy">
-            <div><small>1978</small></div>
+            <h1>
+                PRODE<br>
+                <span class="highlight">MUNDIALIYO</span><br>
+                2026
+            </h1>
+
+            <p class="hero-subtitle">Pronosticá. Competí. Ganá.</p>
+            <p class="hero-tagline">
+                El torneo de pronósticos más grande del Mundial FIFA 2026.<br>
+                48 selecciones, 104 partidos, 1 solo campeón del prode.
+            </p>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">48</div>
+                    <div class="stat-label">Selecciones</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">104</div>
+                    <div class="stat-label">Partidos</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">3pts</div>
+                    <div class="stat-label">Exacto</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">1pt</div>
+                    <div class="stat-label">Acierto</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap;">
+                <a href="{{ url_for('auth.login') }}" class="btn btn-primary" style="width: auto; padding: 14px 32px;">
+                    <i class="bi bi-box-arrow-in-right"></i> Iniciar sesión
+                </a>
+                <a href="{{ url_for('auth.registro') }}" class="btn btn-success" style="width: auto; padding: 14px 32px;">
+                    <i class="bi bi-person-plus"></i> Registrarse
+                </a>
+            </div>
         </div>
-        <div class="text-center">
-            <img src="https://flagcdn.com/w80/ar.png" alt="ARG" style="width: 48px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.4);" loading="lazy">
-            <div><small>1986</small></div>
-        </div>
-        <div class="text-center">
-            <img src="https://flagcdn.com/w80/ar.png" alt="ARG" style="width: 48px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.4);" loading="lazy">
-            <div><small>2022</small></div>
-        </div>
-        <div class="text-center">
-            <div style="font-size: 2rem;">🏆</div>
-            <div><small style="color: var(--wc-lime);">2026?</small></div>
+
+        <div class="hero-messi">
+            <img
+                src="https://sfile.chatglm.cn/images-ppt/e03689118558.jpeg"
+                alt="Lionel Messi con la Copa del Mundo"
+                loading="eager"
+                fetchpriority="high"
+                onerror="this.src='/static/messi.svg';"
+            >
+            <div class="trophy-float">
+                <img
+                    src="https://sfile.chatglm.cn/images-ppt/cc280218e808.jpg"
+                    alt="Copa del Mundo FIFA"
+                    loading="lazy"
+                    onerror="this.parentElement.style.display='none';"
+                >
+            </div>
         </div>
     </div>
-    <small class="text-muted mt-2 d-block">Los años de gloria de la Albiceleste</small>
-</div>
+</section>
+
+{% endif %}
 {% endblock %}

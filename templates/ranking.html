@@ -1,115 +1,102 @@
 {% extends "base.html" %}
+
+{% block title %}Ranking — Prode Mundialiyo 2026{% endblock %}
+
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="page-title"><i class="bi bi-bar-chart-fill me-2"></i>Ranking del Prode</h2>
-    <div class="worldcup-stars">
-        <i class="bi bi-star-fill star-icon"></i>
-        <i class="bi bi-star-fill star-icon"></i>
-        <i class="bi bi-star-fill star-icon"></i>
-    </div>
-</div>
-<p class="text-muted small text-center mb-0" style="margin-top: -20px;">
-    <i class="bi bi-info-circle me-1"></i>Puntos válidos desde la Fecha 3 de Fase de Grupos
-</p>
+<section class="fixture-page">
+    <div class="container">
 
-{% if ranking %}
-<div class="ranking-podium">
-    {% set top3 = ranking[:3] %}
-    {% for item in top3 %}
-    <div class="podium-item podium-{{ loop.index }}">
-        <div class="podium-medal">
-            {% if loop.index == 1 %}🏆
-            {% elif loop.index == 2 %}🥈
-            {% else %}🥉{% endif %}
+        <div class="fixture-header">
+            <h2>RANKING <span class="text-gradient-magenta">GENERAL</span></h2>
+            <p class="fixture-subtitle">
+                Puntos válidos desde la <span>Fecha 3</span> de Fase de Grupos
+            </p>
         </div>
-        <div class="podium-name">{{ item.usuario.username }}</div>
-        <div class="podium-points" style="color: {% if loop.index == 1 %}var(--wc-magenta){% elif loop.index == 2 %}var(--wc-purple){% else %}var(--wc-blue){% endif %}">
-            {{ item.puntos }}
+
+        {% if ranking %}
+        <div class="ranking-podium">
+            {% set top3 = ranking[:3] %}
+            {% for item in top3 %}
+            <div class="podium-item podium-{{ loop.index }}">
+                <div class="podium-medal">
+                    {% if loop.index == 1 %}🏆
+                    {% elif loop.index == 2 %}🥈
+                    {% else %}🥉{% endif %}
+                </div>
+                <div class="podium-name">{{ item.usuario.username }}</div>
+                <div class="podium-points" style="color: {% if loop.index == 1 %}var(--wc-magenta){% elif loop.index == 2 %}var(--wc-purple){% else %}var(--wc-blue){% endif %}">
+                    {{ item.puntos }}
+                </div>
+                <small style="color: var(--text-secondary);">puntos</small>
+            </div>
+            {% endfor %}
         </div>
-        <small class="text-muted">puntos</small>
-    </div>
-    {% endfor %}
-</div>
-{% endif %}
+        {% endif %}
 
-<div class="card">
-    <div class="card-header"><i class="bi bi-list-ol me-2"></i>Tabla de posiciones</div>
-    <div class="card-body p-0">
-        <table class="table table-dark table-hover mb-0">
-            <thead>
-                <tr>
-                    <th class="text-center" style="width: 60px;">#</th>
-                    <th>Usuario</th>
-                    <th class="text-center" style="width: 100px;">Puntos</th>
-                    <th style="width: 200px;">Rendimiento</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% set max_pts = ranking[0].puntos if ranking else 1 %}
-                {% for item in ranking %}
-                <tr>
-                    <td class="text-center align-middle">
-                        {% if loop.index == 1 %}
-                        <span style="font-size: 1.5rem;">🏆</span>
-                        {% elif loop.index == 2 %}
-                        <span style="font-size: 1.5rem;">🥈</span>
-                        {% elif loop.index == 3 %}
-                        <span style="font-size: 1.5rem;">🥉</span>
-                        {% else %}
-                        <strong class="text-muted">{{ loop.index }}</strong>
-                        {% endif %}
-                    </td>
-                    <td class="align-middle">
-                        <i class="bi bi-person-circle me-2" style="color: var(--wc-magenta);"></i>
-                        <strong>{{ item.usuario.username }}</strong>
-                        <small class="text-muted ms-2">({{ item.usuario.predicciones.count() }} pred.)</small>
-                    </td>
-                    <td class="text-center align-middle">
-                        <span class="puntos-badge">{{ item.puntos }}</span>
-                    </td>
-                    <td class="align-middle">
-                        {% set pct = (item.puntos / max_pts * 100) if max_pts > 0 else 0 %}
-                        <div class="progress-bar-custom">
-                            <div class="progress-bar-fill" style="width: {{ pct }}%;"></div>
-                        </div>
-                        <small class="text-muted">{{ '%.0f'|format(pct) }}%</small>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
+        <div class="table-wrapper">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 60px;">#</th>
+                        <th>Usuario</th>
+                        <th class="text-center" style="width: 100px;">Puntos</th>
+                        <th style="width: 200px;">Rendimiento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set max_pts = ranking[0].puntos if ranking else 1 %}
+                    {% for item in ranking %}
+                    <tr>
+                        <td class="text-center">
+                            {% if loop.index == 1 %}<span class="position-1" style="font-size: 1.5rem;">🏆</span>
+                            {% elif loop.index == 2 %}<span class="position-2" style="font-size: 1.5rem;">🥈</span>
+                            {% elif loop.index == 3 %}<span class="position-3" style="font-size: 1.5rem;">🥉</span>
+                            {% else %}<strong style="color: var(--text-secondary);">{{ loop.index }}</strong>{% endif %}
+                        </td>
+                        <td>
+                            <span class="user-avatar" style="display: inline-flex; width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--arg-celeste), var(--wc-magenta)); align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #fff; margin-right: 8px;">{{ item.usuario.username[0]|upper }}</span>
+                            <strong>{{ item.usuario.username }}</strong>
+                            <small style="color: var(--text-secondary); margin-left: 8px;">({{ item.usuario.predicciones.count() }} pred.)</small>
+                        </td>
+                        <td class="text-center">
+                            <span class="puntos-badge">{{ item.puntos }}</span>
+                        </td>
+                        <td>
+                            {% set pct = (item.puntos / max_pts * 100) if max_pts > 0 else 0 %}
+                            <div class="progress-bar-custom">
+                                <div class="progress-bar-fill" style="width: {{ pct }}%;"></div>
+                            </div>
+                            <small style="color: var(--text-secondary);">{{ '%.0f'|format(pct) }}%</small>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-<div class="card mt-4">
-    <div class="card-header"><i class="bi bi-info-circle me-2"></i>Sistema de puntuación</div>
-    <div class="card-body">
-        <div class="row g-3">
-            <div class="col-md-4">
-                <div class="text-center p-3" style="background: rgba(166, 255, 0, 0.08); border-radius: 12px;">
-                    <div class="puntos-badge puntos-exacto" style="font-size: 2rem;">3</div>
-                    <small style="color: var(--wc-lime); font-weight: 600;">Resultado exacto</small>
-                    <br><small class="text-muted">Goles exactos</small>
+        <div class="card" style="margin-top: 24px;">
+            <div class="card-header"><i class="bi bi-info-circle"></i> Sistema de puntuación</div>
+            <div class="card-body">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px;">
+                    <div style="text-align: center; padding: 16px; background: rgba(166, 255, 0, 0.06); border-radius: var(--radius-sm);">
+                        <div class="puntos-badge puntos-exacto" style="font-size: 2rem;">3</div>
+                        <div style="color: var(--wc-lime); font-weight: 600; font-size: 0.85rem; margin-top: 4px;">Resultado exacto</div>
+                    </div>
+                    <div style="text-align: center; padding: 16px; background: rgba(228, 0, 124, 0.06); border-radius: var(--radius-sm);">
+                        <div class="puntos-badge puntos-acierto" style="font-size: 2rem;">1</div>
+                        <div style="color: var(--wc-magenta); font-weight: 600; font-size: 0.85rem; margin-top: 4px;">Acierto victoria/empate</div>
+                    </div>
+                    <div style="text-align: center; padding: 16px; background: rgba(220, 53, 69, 0.06); border-radius: var(--radius-sm);">
+                        <div class="puntos-badge puntos-cero" style="font-size: 2rem;">0</div>
+                        <div style="color: #dc3545; font-weight: 600; font-size: 0.85rem; margin-top: 4px;">Equivocado</div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="text-center p-3" style="background: rgba(228, 0, 124, 0.08); border-radius: 12px;">
-                    <div class="puntos-badge puntos-acierto" style="font-size: 2rem;">1</div>
-                    <small style="color: var(--wc-magenta); font-weight: 600;">Acierto victoria/empate</small>
-                    <br><small class="text-muted">Ganador o empate</small>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="text-center p-3" style="background: rgba(220,53,69,0.08); border-radius: 12px;">
-                    <div class="puntos-badge puntos-cero" style="font-size: 2rem;">0</div>
-                    <small style="color: #dc3545; font-weight: 600;">Equivocado</small>
-                    <br><small class="text-muted">No acertaste</small>
-                </div>
+                <p style="text-align: center; color: var(--text-secondary); font-size: 0.8rem; margin-top: 16px; margin-bottom: 0;">
+                    <i class="bi bi-info-circle me-1"></i>Los penales no cuentan. Se toma el resultado al final del tiempo extra.
+                </p>
             </div>
         </div>
-        <p class="text-muted mt-3 mb-0 small text-center">
-            <i class="bi bi-info-circle me-1"></i>Los penales no cuentan. Se toma el resultado al final del tiempo extra.
-        </p>
+
     </div>
-</div>
+</section>
 {% endblock %}
