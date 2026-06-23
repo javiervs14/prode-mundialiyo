@@ -1,10 +1,11 @@
-const CACHE = "mundialiyo-v1"
+const CACHE = "mundialiyo-v2"
 const ASSETS = [
   "/",
+  "/static/css/worldcup2026.css",
+  "/static/js/main.js",
+  "/static/img/favicon.svg",
   "/static/manifest.json",
-  "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css",
   "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css",
-  "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js",
 ]
 
 self.addEventListener("install", event => {

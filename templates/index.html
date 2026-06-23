@@ -5,9 +5,7 @@
 {% block content %}
 {% if current_user and current_user.is_authenticated %}
 <script>window.location.href = '{{ url_for("main.fixture") }}';</script>
-{% else %}
-
-<section class="hero-section">
+{% else %}<section class="hero-section">
     <div class="hero-bg" aria-hidden="true">
         <img
             src="https://sfile.chatglm.cn/images-ppt/fe2fd210aa5a.jpg"

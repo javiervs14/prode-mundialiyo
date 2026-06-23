@@ -48,9 +48,12 @@ def inject_globals():
             return ""
         return f"https://flagcdn.com/24x18/{code}.png"
 
-    ua = request.headers.get("User-Agent", "").lower()
-    mobile_keywords = ["mobile", "android", "iphone", "ipod", "ipad", "windows phone", "blackberry", "opera mini"]
-    is_mobile = any(kw in ua for kw in mobile_keywords)
+    try:
+        ua = request.headers.get("User-Agent", "").lower()
+        mobile_keywords = ["mobile", "android", "iphone", "ipod", "ipad", "windows phone", "blackberry", "opera mini"]
+        is_mobile = any(kw in ua for kw in mobile_keywords)
+    except RuntimeError:
+        is_mobile = False
     device_class = "mobile-device" if is_mobile else "desktop-device"
 
     return dict(flag_url=flag_url, is_mobile=is_mobile, device_class=device_class)

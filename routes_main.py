@@ -23,7 +23,6 @@ def index():
     if current_user.is_authenticated:
         return redirect(url_for("main.fixture"))
     return render_template("index.html")
-
 @main_bp.route("/fixture")
 @login_required
 def fixture():

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from models import db, Usuario
 
 auth_bp = Blueprint("auth", __name__)
@@ -13,6 +13,15 @@ def registro():
 
         if not username or not email or not password:
             flash("Todos los campos son obligatorios.", "danger")
+            return render_template("registro.html")
+
+        if len(password) < 6:
+            flash("La contraseña debe tener al menos 6 caracteres.", "danger")
+            return render_template("registro.html")
+
+        password_confirm = request.form.get("password_confirm", "")
+        if password != password_confirm:
+            flash("Las contraseñas no coinciden.", "danger")
             return render_template("registro.html")
 
         if Usuario.query.filter_by(username=username).first():
@@ -33,6 +42,8 @@ def registro():
 
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for("main.fixture"))
     if request.method == "POST":
         username = request.form.get("username", "").strip()
         password = request.form.get("password", "")
